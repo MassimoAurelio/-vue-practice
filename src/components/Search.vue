@@ -1,9 +1,9 @@
 <script setup>
-import { ref, watch, unref, defineProps } from "vue";
+import { ref, watch, defineProps } from "vue";
+import { debounce } from "lodash-es";
 
 const coins = ref("");
 const items = ref([]);
-let searchTimeout = null;
 const menuIsVisible = ref(false);
 
 const props = defineProps({
@@ -13,45 +13,39 @@ const props = defineProps({
   },
 });
 
-const search = (coins) => {
-  fetch(`https://api.coinranking.com/v2/search-suggestions?query=${coins}`, {
-    headers: {
-      "X-CoinAPI-Key":
-        "coinranking855424c1f768e1aba72ca991d4b69cf0fd04c0cd0ef834be",
-    },
-  })
-    .then((response) => {
-      if (response.status === 429) {
-        console.error("Слишком много запросов, пожалуйста, подождите...");
-      } else {
-        return response.json();
+const fetchCoins = async (query) => {
+  try {
+    const response = await fetch(
+      `https://api.coinranking.com/v2/search-suggestions?query=${query}`,
+      {
+        headers: {
+          "X-CoinAPI-Key":
+            "coinranking855424c1f768e1aba72ca991d4b69cf0fd04c0cd0ef834be",
+        },
       }
-    })
-    .then((result) => {
-      if (result && result.data && result.data.coins) {
-        items.value = result.data.coins;
-      } else {
-        items.value = [];
-      }
-    })
-    .catch((error) => {
-      console.error(error);
-      items.value = [];
-    });
-};
+    );
 
-watch(coins, (newCoins) => {
-  if (searchTimeout) {
-    clearTimeout(searchTimeout);
+    if (response.status === 429) {
+      console.error("Слишком много запросов, пожалуйста, подождите...");
+      return [];
+    }
+
+    const result = await response.json();
+
+    return result?.data?.coins || [];
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-  searchTimeout = setTimeout(() => {
-    search(unref(newCoins));
-  }, 1500);
-});
-
-const clearInput = () => {
-  coins.value = "";
 };
+
+const search = debounce(async () => {
+  items.value = await fetchCoins(coins.value);
+}, 1000);
+
+watch(coins, () => search());
+
+const clearInput = () => (coins.value = "");
 
 const closeSearchAndClearInput = () => {
   clearInput();

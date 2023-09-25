@@ -1,5 +1,7 @@
 <script setup>
-import { ref, onMounted, defineProps, computed, provide } from "vue";
+import { ref, onMounted, defineProps, provide } from "vue";
+import { getCoins } from "../store/api";
+
 const selectedCount = ref(10);
 const availableCounts = ref([10, 20, 50, 100]);
 const cryptos = ref([]);
@@ -11,22 +13,13 @@ const props = defineProps({
   },
 });
 
-function fetchCoins() {
-  const url = `https://api.coinranking.com/v2/coins?limit=${selectedCount.value}`;
-
-  fetch(url)
-    .then((response) => {
-      if (!response.ok) {
-        throw new Error("Network response error");
-      }
-      return response.json();
-    })
-    .then((data) => {
-      cryptos.value = data.data.coins;
-    })
-    .catch((error) => {
-      console.error(error);
-    });
+async function fetchCoins() {
+  try {
+    const coins = await getCoins(selectedCount.value);
+    cryptos.value = coins;
+  } catch (error) {
+    console.error(error);
+  }
 }
 
 onMounted(() => {

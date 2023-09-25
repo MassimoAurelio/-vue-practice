@@ -1,5 +1,5 @@
 <script setup>
-import { onMounted, ref, defineProps, defineEmits } from "vue";
+import { onMounted, ref, defineEmits } from "vue";
 const isBlackTheme = ref(false);
 const emits = defineEmits(["update:isBlackTheme"]);
 

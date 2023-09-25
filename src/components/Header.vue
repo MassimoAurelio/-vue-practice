@@ -78,7 +78,7 @@ const headerClasses = computed(() => ({
         </div>
       </div>
       <div class="header-right">
-        <ToggleSwitch @update:isBlackTheme="(val) => (isBlackTheme = val)" />
+        <ToggleSwitch v-model="isBlackTheme" />
         <Search class="search" />
       </div>
     </div>
