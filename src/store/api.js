@@ -1,5 +1,8 @@
+export const API_KEY =
+  "coinranking855424c1f768e1aba72ca991d4b69cf0fd04c0cd0ef834be";
+
 //MainTable
-const BASE_URL = "https://api.coinranking.com/v2/";
+export const BASE_URL = "https://api.coinranking.com/v2/";
 
 export async function getCoins(limit) {
   const url = `${BASE_URL}coins?limit=${limit}`;
@@ -18,5 +21,3 @@ export async function getCoins(limit) {
     throw error;
   }
 }
-
-

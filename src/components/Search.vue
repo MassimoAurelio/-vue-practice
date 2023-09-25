@@ -1,6 +1,7 @@
 <script setup>
 import { ref, watch, defineProps } from "vue";
 import { debounce } from "lodash-es";
+import { API_KEY, BASE_URL } from "../store/api";
 
 const coins = ref("");
 const items = ref([]);
@@ -16,11 +17,10 @@ const props = defineProps({
 const fetchCoins = async (query) => {
   try {
     const response = await fetch(
-      `https://api.coinranking.com/v2/search-suggestions?query=${query}`,
+      `${BASE_URL}search-suggestions?query=${query}`,
       {
         headers: {
-          "X-CoinAPI-Key":
-            "coinranking855424c1f768e1aba72ca991d4b69cf0fd04c0cd0ef834be",
+          "X-CoinAPI-Key": API_KEY,
         },
       }
     );
