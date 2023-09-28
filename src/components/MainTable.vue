@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, defineProps, provide } from "vue";
-import { getCoins } from "../store/api";
+import { getCoins } from "../utils/api";
 
 const selectedCount = ref(10);
 const availableCounts = ref([10, 20, 50, 100]);

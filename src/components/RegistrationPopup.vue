@@ -1,5 +1,6 @@
 <script setup>
 import { defineProps, ref } from "vue";
+import AuthButtons from "./AuthButtons.vue";
 
 const props = defineProps({
   isBlackTheme: {
@@ -7,6 +8,91 @@ const props = defineProps({
     required: true,
   },
 });
+const errorEmail = ref(false);
+const errorName = ref(false);
+const errorLastName = ref(false);
+const errorBirth = ref(false);
+const errorPassword = ref(false);
+
+const inputValueEmail = ref("");
+const inputValueName = ref("");
+const inputValueLastName = ref("");
+const inputValueBirth = ref("");
+const inputValuePassword = ref("");
+
+
+function falseErrorMessageEmail() {
+  if (inputValueEmail.value && inputValueEmail.value.trim() !== "") {
+    errorEmail.value = false;
+  } else {
+    errorEmail.value = true;
+  }
+}
+
+function trueErrorMessageEmail() {
+  if (inputValueEmail.value == "") {
+    errorEmail.value = true;
+  }
+}
+
+function falseErrorMessageName() {
+  if (inputValueName.value && inputValueName.value.trim() !== "") {
+    errorName.value = false;
+  } else {
+    errorName.value = true;
+  }
+}
+
+function trueErrorMessageName() {
+  if (inputValueName.value == "") {
+    errorName.value = true;
+  }
+}
+
+function falseErrorMessageLastName() {
+  if (inputValueLastName.value && inputValueLastName.value.trim() !== "") {
+    errorLastName.value = false;
+  } else {
+    errorName.value = true;
+  }
+}
+
+function trueErrorMessageLastName() {
+  if (inputValueLastName.value == "") {
+    errorLastName.value = true;
+  }
+}
+
+function falseErrorMessageBirth() {
+  if (inputValueBirth.value && inputValueBirth.value.trim() !== "") {
+    errorBirth.value = false;
+  } else {
+    errorBirth.value = true;
+  }
+}
+
+function trueErrorMessageBirth() {
+  if (inputValueBirth.value == "") {
+    errorBirth.value = true;
+  }
+}
+function falseErrorMessagePassword() {
+  if (
+    inputValuePassword.value &&
+    inputValuePassword.value.trim() !== "" &&
+    inputValuePassword.value.length >= 6
+  ) {
+    errorPassword.value = false;
+  } else {
+    errorPassword.value = true;
+  }
+}
+
+function trueErrorMessagePassword() {
+  if (inputValuePassword.value == "" && inputValuePassword.value < 6) {
+    errorPassword.value = true;
+  }
+}
 </script>
 
 <template>
@@ -16,52 +102,140 @@ const props = defineProps({
       id="reg-popup"
       :class="{ 'white-theme-select': !isBlackTheme }"
     >
-      <h2 class="popup-title">Sign In</h2>
-      <a class="popup-close" @click="$emit('close-registration')"> &times; </a>
+      <div class="head-close-container">
+        <h2 class="popup-title">Sign In</h2>
+        <a class="popup-close" @click="$emit('close-registration')">
+          &times;
+        </a>
+      </div>
       <form class="reg-form" method="post" action="#">
-        <div class="label">First Name</div>
-        <input
-          class="input-name"
-          type="text"
-          name="username"
-          id="username"
-          required
-          placeholder="Enter your name"
-          :class="{ 'white-theme-select': !isBlackTheme }"
-        />
-
-        <div class="label">Email</div>
-        <input
-          class="input-email"
-          type="email"
-          name="email"
-          id="email"
-          required
-          placeholder="Enter your email"
-          :class="{ 'white-theme-select': !isBlackTheme }"
-        />
-
-        <div class="label">Password</div>
-        <input
-          class="input-password"
-          type="password"
-          name="password"
-          id="password"
-          required
-          placeholder="Enter password"
-          :class="{ 'white-theme-select': !isBlackTheme }"
-        />
-
-        <div class="label">Accept Password</div>
-        <input
-          class="input-accept-password"
-          type="password"
-          name="confirm-password"
-          id="confirm-password"
-          placeholder="Enter password"
-          required
-          :class="{ 'white-theme-select': !isBlackTheme }"
-        />
+        <div class="fiel-input">
+          <input
+            class="input-email"
+            name="email"
+            inputmode="text"
+            placeholder="Email"
+            maxlength="255"
+            type="email"
+            v-model="inputValueEmail"
+            @input="falseErrorMessageEmail"
+            @blur="trueErrorMessageEmail"
+            :class="{
+              'error-border': errorEmail,
+              'white-theme-select': !isBlackTheme,
+            }"
+          />
+          <div data-name="error-email" class="field__error" v-if="errorEmail">
+            Required
+          </div>
+        </div>
+        <div class="fiel-input">
+          <input
+            class="input-first-name"
+            type="text"
+            inputmode="text"
+            name="username"
+            id="username"
+            required
+            placeholder="Name"
+            v-model="inputValueName"
+            @input="falseErrorMessageName"
+            @blur="trueErrorMessageName"
+            :class="{
+              'error-border': errorName,
+              'white-theme-select': !isBlackTheme,
+            }"
+          />
+          <div
+            data-name="error-first-name"
+            class="field__error"
+            v-if="errorName"
+          >
+            Required
+          </div>
+        </div>
+        <div class="fiel-input">
+          <input
+            class="input-last-name"
+            type="text"
+            inputmode="text"
+            name="userlastname"
+            id="userlastname"
+            required
+            placeholder="Surname"
+            v-model="inputValueLastName"
+            @input="falseErrorMessageLastName"
+            @blur="trueErrorMessageLastName"
+            :class="{
+              'error-border': errorLastName,
+              'white-theme-select': !isBlackTheme,
+            }"
+          />
+          <div
+            data-name="error-last-name"
+            class="field__error"
+            v-if="errorLastName"
+          >
+            Required
+          </div>
+        </div>
+        <div class="fiel-input">
+          <input
+            class="input-birth-date"
+            type="text"
+            inputmode="text"
+            name="date"
+            id="date"
+            placeholder="Date of birth (DD/MM/YYYY)"
+            required
+            v-model="inputValueBirth"
+            @input="falseErrorMessageBirth"
+            @blur="trueErrorMessageBirth"
+            :class="{
+              'error-border': errorBirth,
+              'white-theme-select': !isBlackTheme,
+            }"
+          />
+          <div
+            data-name="error-birth-date"
+            class="field__error"
+            v-if="errorBirth"
+          >
+            Required
+          </div>
+        </div>
+        <div class="fiel-input">
+          <div class="input-wrapper">
+            <input
+              class="input-password"
+              type="password"
+              name="password"
+              id="password"
+              required
+              placeholder="Password"
+              v-model="inputValuePassword"
+              v-mask="'##/##/####'"
+              @input="falseErrorMessagePassword"
+              @blur="trueErrorMessagePassword"
+              :class="{
+                'error-border': errorPassword,
+                'white-theme-select': !isBlackTheme,
+              }"
+            />
+            <img
+              class="eye-closed"
+              src="	https://stage.stellare.omgp.xyz/icons/eye-closed.svg"
+              alt="field__icon"
+            />
+          </div>
+          <div
+            data-name="error-password"
+            class="field__error"
+            v-if="errorPassword"
+          >
+            Required
+          </div>
+        </div>
         <button type="submit" class="reg-btn">Create an account</button>
         <div class="divider-container">
           <hr class="divider" />
@@ -72,79 +246,7 @@ const props = defineProps({
           >
           <hr class="divider" />
         </div>
-        <div class="auth-buttons">
-          <button class="google">
-            <div class="logo">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                class="logo-svg"
-              >
-                <path
-                  d="M20.283 10.356h-8.327v3.451h4.792c-.446 2.193-2.313 3.453-4.792 3.453a5.27 5.27 0 0 1-5.279-5.28 5.27 5.27 0 0 1 5.279-5.279c1.259 0 2.397.447 3.29 1.178l2.6-2.599c-1.584-1.381-3.615-2.233-5.89-2.233a8.908 8.908 0 0 0-8.934 8.934 8.907 8.907 0 0 0 8.934 8.934c4.467 0 8.529-3.249 8.529-8.934 0-.528-.081-1.097-.202-1.625z"
-                ></path>
-              </svg>
-            </div>
-            <span>Continue with Google</span>
-          </button>
-          <button
-            class="apple"
-            :class="{ 'white-theme-select': !isBlackTheme }"
-          >
-            <div class="logo">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                class="logo-svg"
-              >
-                <path
-                  d="M19.665 16.811a10.316 10.316 0 0 1-1.021 1.837c-.537.767-.978 1.297-1.316 1.592-.525.482-1.089.73-1.692.744-.432 0-.954-.123-1.562-.373-.61-.249-1.17-.371-1.683-.371-.537 0-1.113.122-1.73.371-.616.25-1.114.381-1.495.393-.577.025-1.154-.229-1.729-.764-.367-.32-.826-.87-1.377-1.648-.59-.829-1.075-1.794-1.455-2.891-.407-1.187-.611-2.335-.611-3.447 0-1.273.275-2.372.826-3.292a4.857 4.857 0 0 1 1.73-1.751 4.65 4.65 0 0 1 2.34-.662c.46 0 1.063.142 1.81.422s1.227.422 1.436.422c.158 0 .689-.167 1.593-.498.853-.307 1.573-.434 2.163-.384 1.6.129 2.801.759 3.6 1.895-1.43.867-2.137 2.08-2.123 3.637.012 1.213.453 2.222 1.317 3.023a4.33 4.33 0 0 0 1.315.863c-.106.307-.218.6-.336.882zM15.998 2.38c0 .95-.348 1.838-1.039 2.659-.836.976-1.846 1.541-2.941 1.452a2.955 2.955 0 0 1-.021-.36c0-.913.396-1.889 1.103-2.688.352-.404.8-.741 1.343-1.009.542-.264 1.054-.41 1.536-.435.013.128.019.255.019.381z"
-                ></path>
-              </svg>
-            </div>
-            <span>Continue with Apple</span>
-          </button>
-          <button class="binance">
-            <div class="logo">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                class="logo-svg"
-              >
-                <path
-                  d="m11.953 8.819-.547 2.19c.619.154 2.529.784 2.838-.456.322-1.291-1.673-1.579-2.291-1.734zm-.822 3.296-.603 2.415c.743.185 3.037.921 3.376-.441.355-1.422-2.029-1.789-2.773-1.974z"
-                ></path>
-                <path
-                  d="M14.421 2.299C9.064.964 3.641 4.224 2.306 9.581.97 14.936 4.23 20.361 9.583 21.697c5.357 1.335 10.783-1.924 12.117-7.281 1.336-5.356-1.924-10.781-7.279-12.117zm1.991 8.275c-.145.974-.686 1.445-1.402 1.611.985.512 1.485 1.298 1.009 2.661-.592 1.691-1.998 1.834-3.87 1.48l-.454 1.82-1.096-.273.447-1.794a44.624 44.624 0 0 1-.875-.228l-.449 1.804-1.095-.275.454-1.823c-.257-.066-.517-.136-.782-.202L6.87 15l.546-1.256s.808.215.797.199c.311.077.448-.125.502-.261l.719-2.875.115.029a.864.864 0 0 0-.114-.037l.512-2.053c.013-.234-.066-.528-.511-.639.018-.011-.797-.198-.797-.198l.291-1.172 1.514.378-.001.005c.227.057.461.111.7.165l.449-1.802 1.097.273-.44 1.766c.294.067.591.135.879.207l.438-1.755 1.097.273-.449 1.802c1.384.479 2.396 1.195 2.198 2.525z"
-                ></path>
-              </svg>
-            </div>
-            <span>Continue with Binance</span>
-          </button>
-          <button class="wallet">
-            <div class="logo">
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                class="logo-svg"
-              >
-                <path d="M16 12h2v4h-2z"></path>
-                <path
-                  d="M20 7V5c0-1.103-.897-2-2-2H5C3.346 3 2 4.346 2 6v12c0 2.201 1.794 3 3 3h15c1.103 0 2-.897 2-2V9c0-1.103-.897-2-2-2zM5 5h13v2H5a1.001 1.001 0 0 1 0-2zm15 14H5.012C4.55 18.988 4 18.805 4 18V8.815c.314.113.647.185 1 .185h15v10z"
-                ></path>
-              </svg>
-            </div>
-            <span>Continue with Wallet</span>
-          </button>
-        </div>
+        <AuthButtons />
       </form>
     </div>
   </div>
@@ -169,7 +271,7 @@ const props = defineProps({
   max-width: 500px;
   padding: 24px 32px 36px;
   width: 90%;
-  height: 830px;
+  height: 730px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
@@ -178,12 +280,8 @@ const props = defineProps({
   font-size: 24px;
   margin-bottom: 10px;
 }
-
 .popup-close {
-  position: absolute;
-  top: 10px;
-  right: 10px;
-  text-decoration: none;
+  cursor: pointer;
   font-size: 35px;
 }
 
@@ -216,6 +314,7 @@ const props = defineProps({
   font-size: 14px;
   height: 45px;
   line-height: 21px;
+  margin-top: 15px;
 }
 
 .reg-form input:focus {
@@ -245,30 +344,6 @@ const props = defineProps({
   line-height: 24px;
 }
 
-.auth-buttons {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  margin-top: 5px;
-}
-
-.google,
-.apple,
-.binance,
-.wallet {
-  font-size: 16px;
-  font-weight: bold;
-  background-color: #0d1421;
-  color: #fff;
-  cursor: pointer;
-  padding: 10px;
-  border: none;
-  border-radius: 8px;
-  margin-top: 10px;
-  width: 100%;
-  text-align: center;
-}
-
 .reg-form button.reg-btn:hover {
   background-color: #2d6bb7;
 }
@@ -277,13 +352,6 @@ const props = defineProps({
   display: inline-block;
   margin-right: 8px;
   vertical-align: middle;
-}
-
-.auth-buttons button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid rgb(64, 66, 78);
 }
 
 .divider-container {
@@ -315,34 +383,15 @@ const props = defineProps({
 }
 
 .white-theme .input-email,
-.white-theme .input-name,
-.white-theme .input-password,
-.white-theme .input-accept-password {
+.white-theme .input-first-name,
+.white-theme .input-last-name,
+.white-theme .input-birth-date,
+.white-theme .input-password {
   background-color: white;
   color: #333;
   border: 1px solid rgb(194, 196, 204);
 }
 
-.white-theme .apple,
-.white-theme .google,
-.white-theme .binance,
-.white-theme .wallet {
-  background-color: white;
-  color: #333;
-  border: 1px solid rgb(194, 196, 204);
-}
-
-.logo-svg {
-  fill: rgba(255, 255, 255, 1);
-}
-
-.white-theme-select .logo-svg {
-  fill: #000;
-}
-
-.black-theme .logo-svg {
-  fill: #fff;
-}
 .white-theme .divider-text {
   color: black;
 }
@@ -350,5 +399,40 @@ const props = defineProps({
   background-color: white;
   color: #333;
   border: 1px solid #0d0d10;
+}
+.field__error {
+  color: #c90726;
+  font-size: 14px;
+  line-height: 1.05;
+  margin-left: 0.1%;
+}
+
+.error-border {
+  border-color: #c90726 !important;
+}
+
+.head-close-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+.eye-closed {
+  position: absolute;
+  left: 92%;
+  top: 62%;
+  transform: translateY(-50%);
+  max-width: 20px;
+  max-height: 20px;
+  cursor: pointer;
+}
+
+.fiel-input {
+  position: relative;
+}
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  position: relative;
 }
 </style>

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, watch, defineProps } from "vue";
 import { debounce } from "lodash-es";
-import { API_KEY, BASE_URL } from "../store/api";
+import { API_KEY, BASE_URL } from "../utils/api";
 
 const coins = ref("");
 const items = ref([]);

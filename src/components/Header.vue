@@ -156,6 +156,7 @@ const headerClasses = computed(() => ({
   background-color: #f0f0f0;
 }
 .header-menu {
+  cursor: pointer;
   display: flex;
   align-items: center;
   margin-left: 50px;
