@@ -1,6 +1,8 @@
 <script setup>
 import { defineProps, ref } from "vue";
 import AuthButtons from "./AuthButtons.vue";
+import { useVuelidate } from "@vuelidate/core";
+import { required, minLength } from "@vuelidate/validators";
 
 const props = defineProps({
   isBlackTheme: {
@@ -8,91 +10,54 @@ const props = defineProps({
     required: true,
   },
 });
-const errorEmail = ref(false);
-const errorName = ref(false);
-const errorLastName = ref(false);
-const errorBirth = ref(false);
-const errorPassword = ref(false);
+
+const showPassword = ref(false);
 
 const inputValueEmail = ref("");
 const inputValueName = ref("");
 const inputValueLastName = ref("");
 const inputValueBirth = ref("");
 const inputValuePassword = ref("");
+const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
 
+function toggleShowPasswordIcon() {
+  showPassword.value = !showPassword.value;
 
-function falseErrorMessageEmail() {
-  if (inputValueEmail.value && inputValueEmail.value.trim() !== "") {
-    errorEmail.value = false;
-  } else {
-    errorEmail.value = true;
-  }
-}
-
-function trueErrorMessageEmail() {
-  if (inputValueEmail.value == "") {
-    errorEmail.value = true;
-  }
-}
-
-function falseErrorMessageName() {
-  if (inputValueName.value && inputValueName.value.trim() !== "") {
-    errorName.value = false;
-  } else {
-    errorName.value = true;
-  }
-}
-
-function trueErrorMessageName() {
-  if (inputValueName.value == "") {
-    errorName.value = true;
-  }
-}
-
-function falseErrorMessageLastName() {
-  if (inputValueLastName.value && inputValueLastName.value.trim() !== "") {
-    errorLastName.value = false;
-  } else {
-    errorName.value = true;
-  }
-}
-
-function trueErrorMessageLastName() {
-  if (inputValueLastName.value == "") {
-    errorLastName.value = true;
-  }
-}
-
-function falseErrorMessageBirth() {
-  if (inputValueBirth.value && inputValueBirth.value.trim() !== "") {
-    errorBirth.value = false;
-  } else {
-    errorBirth.value = true;
-  }
-}
-
-function trueErrorMessageBirth() {
-  if (inputValueBirth.value == "") {
-    errorBirth.value = true;
-  }
-}
-function falseErrorMessagePassword() {
   if (
-    inputValuePassword.value &&
-    inputValuePassword.value.trim() !== "" &&
-    inputValuePassword.value.length >= 6
+    eyeImageUrl.value === "https://stage.stellare.omgp.xyz/icons/eye-closed.svg"
   ) {
-    errorPassword.value = false;
+    eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-open.svg";
   } else {
-    errorPassword.value = true;
+    eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-closed.svg";
   }
 }
 
-function trueErrorMessagePassword() {
-  if (inputValuePassword.value == "" && inputValuePassword.value < 6) {
-    errorPassword.value = true;
+const rules = {
+  inputValueEmail: { required },
+  inputValueName: { required, minLength: minLength(1) },
+  inputValueLastName: { required, minLength: minLength(1) },
+  inputValueBirth: { required },
+  inputValuePassword: { required, minLength: minLength(6) },
+};
+
+function handleSubmit() {
+  if (v$.$invalid) {
+    return;
   }
+  console.log("Form submitted successfully");
 }
+
+function toggleShowPassword() {
+  showPassword.value = !showPassword.value;
+}
+
+const v$ = useVuelidate(rules, {
+  inputValueEmail,
+  inputValueName,
+  inputValueLastName,
+  inputValueBirth,
+  inputValuePassword,
+});
 </script>
 
 <template>
@@ -108,7 +73,12 @@ function trueErrorMessagePassword() {
           &times;
         </a>
       </div>
-      <form class="reg-form" method="post" action="#">
+      <form
+        class="reg-form"
+        method="post"
+        action="#"
+        @submit.prevent="handleSubmit"
+      >
         <div class="fiel-input">
           <input
             class="input-email"
@@ -118,14 +88,18 @@ function trueErrorMessagePassword() {
             maxlength="255"
             type="email"
             v-model="inputValueEmail"
-            @input="falseErrorMessageEmail"
-            @blur="trueErrorMessageEmail"
+            @blur="v$.inputValueEmail.$touch"
             :class="{
-              'error-border': errorEmail,
+              'error-border':
+                v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
               'white-theme-select': !isBlackTheme,
             }"
           />
-          <div data-name="error-email" class="field__error" v-if="errorEmail">
+          <div
+            data-name="error-email"
+            class="field__error"
+            v-if="v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty"
+          >
             Required
           </div>
         </div>
@@ -139,17 +113,17 @@ function trueErrorMessagePassword() {
             required
             placeholder="Name"
             v-model="inputValueName"
-            @input="falseErrorMessageName"
-            @blur="trueErrorMessageName"
+            @blur="v$.inputValueName.$touch"
             :class="{
-              'error-border': errorName,
+              'error-border':
+                v$.inputValueName.$invalid && v$.inputValueName.$dirty,
               'white-theme-select': !isBlackTheme,
             }"
           />
           <div
             data-name="error-first-name"
             class="field__error"
-            v-if="errorName"
+            v-if="v$.inputValueName.$invalid && v$.inputValueName.$dirty"
           >
             Required
           </div>
@@ -164,17 +138,19 @@ function trueErrorMessagePassword() {
             required
             placeholder="Surname"
             v-model="inputValueLastName"
-            @input="falseErrorMessageLastName"
-            @blur="trueErrorMessageLastName"
+            @blur="v$.inputValueLastName.$touch"
             :class="{
-              'error-border': errorLastName,
+              'error-border':
+                v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty,
               'white-theme-select': !isBlackTheme,
             }"
           />
           <div
             data-name="error-last-name"
             class="field__error"
-            v-if="errorLastName"
+            v-if="
+              v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty
+            "
           >
             Required
           </div>
@@ -189,17 +165,17 @@ function trueErrorMessagePassword() {
             placeholder="Date of birth (DD/MM/YYYY)"
             required
             v-model="inputValueBirth"
-            @input="falseErrorMessageBirth"
-            @blur="trueErrorMessageBirth"
+            @blur="v$.inputValueBirth.$touch"
             :class="{
-              'error-border': errorBirth,
+              'error-border':
+                v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty,
               'white-theme-select': !isBlackTheme,
             }"
           />
           <div
             data-name="error-birth-date"
             class="field__error"
-            v-if="errorBirth"
+            v-if="v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty"
           >
             Required
           </div>
@@ -208,35 +184,41 @@ function trueErrorMessagePassword() {
           <div class="input-wrapper">
             <input
               class="input-password"
-              type="password"
+              :type="showPassword ? 'text' : 'password'"
               name="password"
               id="password"
               required
               placeholder="Password"
               v-model="inputValuePassword"
               v-mask="'##/##/####'"
-              @input="falseErrorMessagePassword"
-              @blur="trueErrorMessagePassword"
+              @blur="v$.inputValuePassword.$touch"
               :class="{
-                'error-border': errorPassword,
+                'error-border':
+                  v$.inputValuePassword.$invalid &&
+                  v$.inputValuePassword.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
             <img
               class="eye-closed"
-              src="	https://stage.stellare.omgp.xyz/icons/eye-closed.svg"
+              @click="toggleShowPasswordIcon"
+              :src="eyeImageUrl"
               alt="field__icon"
             />
           </div>
           <div
             data-name="error-password"
             class="field__error"
-            v-if="errorPassword"
+            v-if="
+              v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty
+            "
           >
             Required
           </div>
         </div>
-        <button type="submit" class="reg-btn">Create an account</button>
+        <button type="submit" class="reg-btn" :disabled="v$.$invalid">
+          Sign Up
+        </button>
         <div class="divider-container">
           <hr class="divider" />
           <span
@@ -271,7 +253,8 @@ function trueErrorMessagePassword() {
   max-width: 500px;
   padding: 24px 32px 36px;
   width: 90%;
-  height: 730px;
+  min-height: 700px;
+  height: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
 }
@@ -311,7 +294,7 @@ function trueErrorMessagePassword() {
   outline: 0px;
   padding: 0px 16px;
   width: 100%;
-  font-size: 14px;
+  font-size: 16px;
   height: 45px;
   line-height: 21px;
   margin-top: 15px;
@@ -339,13 +322,22 @@ function trueErrorMessagePassword() {
   font-weight: 600;
   width: 100%;
   height: 48px;
-  font-size: 14px;
+  font-size: 16px;
   padding: 0px 24px;
   line-height: 24px;
 }
 
 .reg-form button.reg-btn:hover {
   background-color: #2d6bb7;
+}
+
+.reg-btn {
+  opacity: 1;
+}
+
+.reg-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .logo {

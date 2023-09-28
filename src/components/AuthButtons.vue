@@ -13,22 +13,24 @@ const props = defineProps({
     <button
       class="google"
       :class="{
+        'black-theme': isBlackTheme,
         'white-theme-select': !isBlackTheme,
       }"
     >
       <div class="logo">
-        <img src="../assets/img/google.svg" alt="" />
+        <img class="svg-fill" src="../assets/img/google.svg" alt="" />
       </div>
       <span>Continue with Google</span>
     </button>
     <button
       class="apple"
       :class="{
+        'black-theme': isBlackTheme,
         'white-theme-select': !isBlackTheme,
       }"
     >
       <div class="logo">
-        <img src="../assets/img/apple.svg" alt="" />
+        <img class="svg-fill" src="../assets/img/apple.svg" alt="" />
       </div>
       <span>Continue with Apple</span>
     </button>
@@ -65,6 +67,15 @@ const props = defineProps({
   border: 1px solid rgb(194, 196, 204);
 }
 
+.white-theme .svg-fill,
+.white-theme .svg-fill {
+  fill: black;
+}
+
+.black-theme .svg-fill,
+.black-theme .svg-fill {
+  fill: #fff;
+}
 .logo {
   display: inline-block;
   margin-right: 8px;
@@ -73,13 +84,5 @@ const props = defineProps({
 
 .logo-svg {
   fill: rgba(255, 255, 255, 1);
-}
-
-.white-theme-select .logo-svg {
-  fill: #000;
-}
-
-.black-theme .logo-svg {
-  fill: #fff;
 }
 </style>
