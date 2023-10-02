@@ -145,6 +145,9 @@ const v$ = useVuelidate(rules, {
         </div>
         <AuthButtons />
       </form>
+      <button class="reg-button" @click="$emit('open-registration')">
+        <span> Go to Registration </span>
+      </button>
     </div>
   </div>
 </template>

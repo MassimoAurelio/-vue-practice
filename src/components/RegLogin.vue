@@ -11,7 +11,7 @@ const props = defineProps({
 
 <template>
   <div class="button-container">
-    <ToggleSwitch @update:isBlackTheme="(val) => (isBlackTheme = val)" />
+    <ToggleSwitch />
     <button
       class="login-button"
       @click="$emit('open-login')"
@@ -32,7 +32,8 @@ const props = defineProps({
   justify-content: flex-end;
   display: flex;
   align-items: center;
-  padding: 0 26px;
+  padding: 0 2%;
+  padding-top: 1%;
 }
 
 .reg-button,
@@ -47,8 +48,8 @@ const props = defineProps({
   font-weight: bold;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s;
+  border-radius: 52px;
+  background-color: 0.3s;
 }
 
 .black-theme .login-button {

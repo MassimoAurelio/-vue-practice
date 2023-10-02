@@ -37,8 +37,7 @@ provide("fetchCoins", fetchCoins);
       v-model="selectedCount"
       @change="fetchCoins"
       :class="{
-        'black-theme': isBlackTheme,
-        'white-theme-option': !isBlackTheme,
+        'white-theme-select': !isBlackTheme,
       }"
     >
       <option
@@ -46,7 +45,6 @@ provide("fetchCoins", fetchCoins);
         :value="count"
         :key="count"
         :class="{
-          'black-theme': isBlackTheme,
           'white-theme-option': !isBlackTheme,
         }"
       >

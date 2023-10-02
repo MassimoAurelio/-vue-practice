@@ -18,6 +18,7 @@ const inputValueName = ref("");
 const inputValueLastName = ref("");
 const inputValueBirth = ref("");
 const inputValuePassword = ref("");
+const goToLoginPopup = ref("");
 const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
 
 function toggleShowPasswordIcon() {
@@ -47,16 +48,16 @@ function handleSubmit() {
   console.log("Form submitted successfully");
 }
 
-function toggleShowPassword() {
-  showPassword.value = !showPassword.value;
-}
-
 const v$ = useVuelidate(rules, {
   inputValueEmail,
   inputValueName,
   inputValueLastName,
   inputValueBirth,
   inputValuePassword,
+});
+
+defineExpose({
+  goToLoginPopup,
 });
 </script>
 
@@ -162,6 +163,7 @@ const v$ = useVuelidate(rules, {
             inputmode="text"
             name="date"
             id="date"
+            v-mask="'##/##/####'"
             placeholder="Date of birth (DD/MM/YYYY)"
             required
             v-model="inputValueBirth"
@@ -190,7 +192,6 @@ const v$ = useVuelidate(rules, {
               required
               placeholder="Password"
               v-model="inputValuePassword"
-              v-mask="'##/##/####'"
               @blur="v$.inputValuePassword.$touch"
               :class="{
                 'error-border':
@@ -230,6 +231,9 @@ const v$ = useVuelidate(rules, {
         </div>
         <AuthButtons />
       </form>
+      <button class="reg-button" @click="$emit('open-login')">
+        <span> Go to Registration </span>
+      </button>
     </div>
   </div>
 </template>

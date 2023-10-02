@@ -17,7 +17,11 @@
     "vee-validate": "^4.11.7",
     "vue": "^3.3.4",
     "vue-input-mask": "^0.0.11",
+    "vue-masked-input": "^0.5.2",
+    "vue-on-click-outside": "^1.0.3",
+    "vue-the-mask": "^0.11.1",
     "vue3-click-away": "^1.2.4",
+    "vuelidate": "^0.7.7",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
@@ -26,6 +30,8 @@
     "@vitejs/plugin-vue": "^4.3.1",
     "eslint-plugin-vue": "^9.17.0",
     "inputmask": "^5.0.8",
-    "vite": "^4.4.9"
+    "svg-url-loader": "^8.0.0",
+    "vite": "^4.4.9",
+    "vue-svg-loader": "^0.16.0"
   }
 }

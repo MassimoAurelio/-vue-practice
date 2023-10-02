@@ -72,17 +72,8 @@ const closeSearch = () => {
         v-click-outside="closeSearchAndClearInput"
         @click.stop="closeSearchAndClearInput"
         :class="{ 'black-theme': isBlackTheme, 'white-theme': !isBlackTheme }"
-        ><svg
-          class="svg-crestik"
-          xmlns="http://www.w3.org/2000/svg"
-          width="24"
-          height="24"
-          viewBox="0 0 24 24"
-        >
-          <path
-            d="M12 2C6.486 2 2 6.486 2 12s4.486 10 10 10 10-4.486 10-10S17.514 2 12 2zm4.207 12.793-1.414 1.414L12 13.414l-2.793 2.793-1.414-1.414L10.586 12 7.793 9.207l1.414-1.414L12 10.586l2.793-2.793 1.414 1.414L13.414 12l2.793 2.793z"
-          ></path></svg
-      ></span>
+        >&times;
+      </span>
     </div>
     <div class="search-result" v-if="menuIsVisible">
       <ul>
@@ -102,7 +93,7 @@ const closeSearch = () => {
   max-width: 500px;
   margin: 0 auto;
   position: relative;
-  padding: 0 26px;
+  padding: 0 42px;
 }
 
 .input-wrapper {
@@ -130,17 +121,17 @@ input:focus {
   cursor: pointer;
   height: 30px;
   width: 30px;
-  right: 5px;
-  top: 48%;
+  right: 2px;
+  top: 40%;
   transform: translateY(-50%);
-  font-size: 12px;
+  font-size: 20px;
   font-weight: bold;
   color: #888;
 }
 
 .black-theme .krest {
   fill: white;
-  background-color: #2d3748;
+  background-color: #323546;
 }
 
 .white-theme .krest {
@@ -203,7 +194,7 @@ li:last-child {
 }
 
 .black-theme .input-container input {
-  background-color: #2d3748;
+  background-color: #323546;
   border: 2px solid #4a5568;
   color: #ffffff;
 }
