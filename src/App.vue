@@ -24,6 +24,15 @@ function openLoginPopup() {
 function closeLoginPopup() {
   isLoginPopupOpen.value = false;
 }
+const switchToRegistrationPopup = () => {
+  isLoginPopupOpen.value = false;
+  isRegistrationPopupOpen.value = true;
+};
+
+const switchToLoginPopup = () => {
+  isLoginPopupOpen.value = true;
+  isRegistrationPopupOpen.value = false;
+};
 </script>
 
 <template>
@@ -36,11 +45,13 @@ function closeLoginPopup() {
     <RegistrationPopup
       v-if="isRegistrationPopupOpen"
       @close-registration="closeRegistrationPopup"
+      @open-login="switchToLoginPopup"
     />
     <LoginPopup
       v-if="isLoginPopupOpen"
       @close-login="closeLoginPopup"
       :is-black-theme="isBlackTheme"
+      @open-registration="switchToRegistrationPopup"
     />
     <ScrollBack />
     <MainTable :is-black-theme="isBlackTheme" />

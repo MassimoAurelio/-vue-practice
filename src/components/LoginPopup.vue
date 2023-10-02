@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref } from "vue";
+import { defineProps, ref, toRefs } from "vue";
 import AuthButtons from "./AuthButtons.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength } from "@vuelidate/validators";
@@ -24,22 +24,19 @@ function toggleShowPasswordIcon() {
 }
 const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
 const inputValueEmail = ref("");
-const inputValueName = ref("");
-const inputValueLastName = ref("");
-const inputValueBirth = ref("");
 const inputValuePassword = ref("");
 const showPassword = ref(false);
 
 const rules = {
   inputValueEmail: { required },
-  inputValueName: { required, minLength: minLength(1) },
-  inputValueLastName: { required, minLength: minLength(1) },
-  inputValueBirth: { required },
   inputValuePassword: { required, minLength: minLength(6) },
 };
 
 function handleSubmit() {
+  v$.$touch();
+
   if (v$.$invalid) {
+    console.log(v$.$invalid);
     return;
   }
   console.log("Form submitted successfully");
@@ -47,9 +44,6 @@ function handleSubmit() {
 
 const v$ = useVuelidate(rules, {
   inputValueEmail,
-  inputValueName,
-  inputValueLastName,
-  inputValueBirth,
   inputValuePassword,
 });
 </script>
@@ -61,93 +55,105 @@ const v$ = useVuelidate(rules, {
       id="reg-popup"
       :class="{ 'white-theme-select': !isBlackTheme }"
     >
-      <div class="head-close-container">
-        <h2 class="popup-title">Log-in</h2>
-        <a class="popup-close" @click="$emit('close-login')"> &times; </a>
-      </div>
-      <form
-        class="reg-form"
-        method="post"
-        action="#"
-        @submit.prevent="handleSubmit"
-      >
-        <div class="fiel-input">
-          <input
-            class="input-email"
-            name="email"
-            inputmode="text"
-            placeholder="Email"
-            maxlength="255"
-            type="email"
-            v-model="inputValueEmail"
-            @blur="v$.inputValueEmail.$touch"
-            :class="{
-              'error-border':
-                v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
-              'white-theme-select': !isBlackTheme,
-            }"
-          />
-          <div
-            data-name="error-email"
-            class="field__error"
-            v-if="v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty"
-          >
-            Required
+      <div class="form">
+        <div class="head-close-container">
+          <div class="container">
+            <div class="inner-container">
+              <div class="goToLogin" @click="moveToLogin">Log in</div>
+              <div
+                class="block"
+                :class="{ 'move-block': showLoginBlock }"
+              ></div>
+            </div>
+            <div class="inner-container">
+              <div class="goToRegistration" @click="$emit('open-registration')">
+                Sign Up
+              </div>
+            </div>
           </div>
+          <a class="popup-close" @click="$emit('close-login')"> &times; </a>
         </div>
-        <div class="fiel-input">
-          <div class="input-wrapper">
+        <form
+          class="reg-form"
+          method="post"
+          action="#"
+          @submit.prevent="handleSubmit"
+          novalidate
+        >
+          <div class="fiel-input">
             <input
-              class="input-password"
-              :type="showPassword ? 'text' : 'password'"
-              name="password"
-              id="password"
-              required
-              placeholder="Password"
-              v-model="inputValuePassword"
-              v-mask="'##/##/####'"
-              @blur="v$.inputValuePassword.$touch"
+              class="input-email"
+              name="email"
+              inputmode="text"
+              autocomplete="current-email"
+              placeholder="Email"
+              maxlength="255"
+              type="email"
+              v-model="inputValueEmail"
+              @blur="v$.inputValueEmail.$touch"
               :class="{
                 'error-border':
-                  v$.inputValuePassword.$invalid &&
-                  v$.inputValuePassword.$dirty,
+                  v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
-            <img
-              class="eye-closed"
-              @click="toggleShowPasswordIcon"
-              :src="eyeImageUrl"
-              alt="field__icon"
-            />
+            <div
+              data-name="error-email"
+              class="field__error"
+              v-if="v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty"
+            >
+              Required
+            </div>
           </div>
-          <div
-            data-name="error-password"
-            class="field__error"
-            v-if="
-              v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty
-            "
-          >
-            Required
+          <div class="fiel-input">
+            <div class="input-wrapper">
+              <input
+                class="input-password"
+                :type="showPassword ? 'text' : 'password'"
+                name="password"
+                id="password"
+                required
+                placeholder="Password"
+                autocomplete="current-password"
+                v-model="inputValuePassword"
+                @blur="v$.inputValuePassword.$touch"
+                :class="{
+                  'error-border':
+                    v$.inputValuePassword.$invalid &&
+                    v$.inputValuePassword.$dirty,
+                  'white-theme-select': !isBlackTheme,
+                }"
+              />
+              <img
+                class="eye-closed"
+                @click="toggleShowPasswordIcon"
+                :src="eyeImageUrl"
+                alt="field__icon"
+              />
+            </div>
+            <div
+              data-name="error-password"
+              class="field__error"
+              v-if="
+                v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty
+              "
+            >
+              Required
+            </div>
           </div>
-        </div>
-        <button type="submit" class="reg-btn" :disabled="v$.$invalid">
-          Log in
-        </button>
-        <div class="divider-container">
-          <hr class="divider" />
-          <span
-            class="divider-text"
-            :class="{ 'white-theme-select': !isBlackTheme }"
-            >OR</span
-          >
-          <hr class="divider" />
-        </div>
-        <AuthButtons />
-      </form>
-      <button class="reg-button" @click="$emit('open-registration')">
-        <span> Go to Registration </span>
-      </button>
+          <button type="submit" class="reg-btn">Log in</button>
+          <div class="divider-container">
+            <hr class="divider" />
+            <span
+              class="divider-text"
+              :class="{ 'white-theme-select': !isBlackTheme }"
+              >OR</span
+            >
+            <hr class="divider" />
+          </div>
+          <AuthButtons />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -166,6 +172,7 @@ const v$ = useVuelidate(rules, {
 }
 
 .popup {
+  position: relative;
   background: #222531;
   border-radius: 10px;
   max-width: 500px;
@@ -184,6 +191,9 @@ const v$ = useVuelidate(rules, {
 .popup-close {
   cursor: pointer;
   font-size: 35px;
+  position: absolute;
+  top: 0px;
+  right: 10px;
 }
 
 .reg-form {
@@ -323,10 +333,49 @@ const v$ = useVuelidate(rules, {
 
 .head-close-container {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 100%;
+}
+
+.inner-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goToLogin,
+.goToRegistration {
+  position: relative;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+}
+
+.block {
+  position: absolute;
+  background: #6188ff;
+  pointer-events: none;
+  bottom: -13px;
+  height: 5px;
+  width: 28px;
+  border-radius: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
+  padding-bottom: 20px;
 }
+
 .eye-closed {
   position: absolute;
   left: 92%;
@@ -337,6 +386,10 @@ const v$ = useVuelidate(rules, {
   cursor: pointer;
 }
 
+.form {
+  padding: 10px 15px;
+  position: relative;
+}
 .fiel-input {
   position: relative;
 }

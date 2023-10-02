@@ -19,7 +19,6 @@ const props = defineProps({
     >
       <span> Log In </span>
     </button>
-
     <button class="reg-button" @click="$emit('open-registration')">
       <span> Sign Up </span>
     </button>

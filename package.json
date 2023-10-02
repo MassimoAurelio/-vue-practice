@@ -10,6 +10,7 @@
   "dependencies": {
     "@vuelidate/core": "^2.0.3",
     "@vuelidate/validators": "^2.0.4",
+    "animated-vue": "^0.5.3",
     "axios": "^1.5.0",
     "lodash": "^4.17.21",
     "lodash-es": "^4.17.21",
@@ -19,8 +20,10 @@
     "vue-input-mask": "^0.0.11",
     "vue-masked-input": "^0.5.2",
     "vue-on-click-outside": "^1.0.3",
+    "vue-router": "^4.2.5",
     "vue-the-mask": "^0.11.1",
     "vue3-click-away": "^1.2.4",
+    "vue3-transitions": "^1.0.0",
     "vuelidate": "^0.7.7",
     "vuex": "^4.1.0"
   },

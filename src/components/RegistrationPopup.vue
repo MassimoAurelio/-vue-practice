@@ -12,13 +12,11 @@ const props = defineProps({
 });
 
 const showPassword = ref(false);
-
 const inputValueEmail = ref("");
 const inputValueName = ref("");
 const inputValueLastName = ref("");
 const inputValueBirth = ref("");
 const inputValuePassword = ref("");
-const goToLoginPopup = ref("");
 const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
 
 function toggleShowPasswordIcon() {
@@ -55,10 +53,6 @@ const v$ = useVuelidate(rules, {
   inputValueBirth,
   inputValuePassword,
 });
-
-defineExpose({
-  goToLoginPopup,
-});
 </script>
 
 <template>
@@ -68,172 +62,180 @@ defineExpose({
       id="reg-popup"
       :class="{ 'white-theme-select': !isBlackTheme }"
     >
-      <div class="head-close-container">
-        <h2 class="popup-title">Sign In</h2>
-        <a class="popup-close" @click="$emit('close-registration')">
-          &times;
-        </a>
-      </div>
-      <form
-        class="reg-form"
-        method="post"
-        action="#"
-        @submit.prevent="handleSubmit"
-      >
-        <div class="fiel-input">
-          <input
-            class="input-email"
-            name="email"
-            inputmode="text"
-            placeholder="Email"
-            maxlength="255"
-            type="email"
-            v-model="inputValueEmail"
-            @blur="v$.inputValueEmail.$touch"
-            :class="{
-              'error-border':
-                v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
-              'white-theme-select': !isBlackTheme,
-            }"
-          />
-          <div
-            data-name="error-email"
-            class="field__error"
-            v-if="v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty"
-          >
-            Required
+      <div class="form">
+        <div class="head-close-container">
+          <div class="container">
+            <div class="inner-container">
+              <div class="goToLogin" @click="$emit('open-login')">Log-in</div>
+              
+            </div>
+            <div class="inner-container">
+              <div class="goToRegistration">Sign Up</div>
+              <div class="block"></div>
+            </div>
           </div>
+          <a class="popup-close" @click="$emit('close-registration')">
+            &times;
+          </a>
         </div>
-        <div class="fiel-input">
-          <input
-            class="input-first-name"
-            type="text"
-            inputmode="text"
-            name="username"
-            id="username"
-            required
-            placeholder="Name"
-            v-model="inputValueName"
-            @blur="v$.inputValueName.$touch"
-            :class="{
-              'error-border':
-                v$.inputValueName.$invalid && v$.inputValueName.$dirty,
-              'white-theme-select': !isBlackTheme,
-            }"
-          />
-          <div
-            data-name="error-first-name"
-            class="field__error"
-            v-if="v$.inputValueName.$invalid && v$.inputValueName.$dirty"
-          >
-            Required
-          </div>
-        </div>
-        <div class="fiel-input">
-          <input
-            class="input-last-name"
-            type="text"
-            inputmode="text"
-            name="userlastname"
-            id="userlastname"
-            required
-            placeholder="Surname"
-            v-model="inputValueLastName"
-            @blur="v$.inputValueLastName.$touch"
-            :class="{
-              'error-border':
-                v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty,
-              'white-theme-select': !isBlackTheme,
-            }"
-          />
-          <div
-            data-name="error-last-name"
-            class="field__error"
-            v-if="
-              v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty
-            "
-          >
-            Required
-          </div>
-        </div>
-        <div class="fiel-input">
-          <input
-            class="input-birth-date"
-            type="text"
-            inputmode="text"
-            name="date"
-            id="date"
-            v-mask="'##/##/####'"
-            placeholder="Date of birth (DD/MM/YYYY)"
-            required
-            v-model="inputValueBirth"
-            @blur="v$.inputValueBirth.$touch"
-            :class="{
-              'error-border':
-                v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty,
-              'white-theme-select': !isBlackTheme,
-            }"
-          />
-          <div
-            data-name="error-birth-date"
-            class="field__error"
-            v-if="v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty"
-          >
-            Required
-          </div>
-        </div>
-        <div class="fiel-input">
-          <div class="input-wrapper">
+        <form
+          class="reg-form"
+          method="post"
+          action="#"
+          @submit.prevent="handleSubmit"
+          novalidate
+        >
+          <div class="fiel-input">
             <input
-              class="input-password"
-              :type="showPassword ? 'text' : 'password'"
-              name="password"
-              id="password"
-              required
-              placeholder="Password"
-              v-model="inputValuePassword"
-              @blur="v$.inputValuePassword.$touch"
+              class="input-email"
+              name="email"
+              inputmode="text"
+              placeholder="Email"
+              maxlength="255"
+              type="email"
+              v-model="inputValueEmail"
+              @blur="v$.inputValueEmail.$touch"
               :class="{
                 'error-border':
-                  v$.inputValuePassword.$invalid &&
-                  v$.inputValuePassword.$dirty,
+                  v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
-            <img
-              class="eye-closed"
-              @click="toggleShowPasswordIcon"
-              :src="eyeImageUrl"
-              alt="field__icon"
+            <div
+              data-name="error-email"
+              class="field__error"
+              v-if="v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty"
+            >
+              Required
+            </div>
+          </div>
+          <div class="fiel-input">
+            <input
+              class="input-first-name"
+              type="text"
+              inputmode="text"
+              name="username"
+              id="username"
+              required
+              placeholder="Name"
+              v-model="inputValueName"
+              @blur="v$.inputValueName.$touch"
+              :class="{
+                'error-border':
+                  v$.inputValueName.$invalid && v$.inputValueName.$dirty,
+                'white-theme-select': !isBlackTheme,
+              }"
             />
+            <div
+              data-name="error-first-name"
+              class="field__error"
+              v-if="v$.inputValueName.$invalid && v$.inputValueName.$dirty"
+            >
+              Required
+            </div>
           </div>
-          <div
-            data-name="error-password"
-            class="field__error"
-            v-if="
-              v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty
-            "
-          >
-            Required
+          <div class="fiel-input">
+            <input
+              class="input-last-name"
+              type="text"
+              inputmode="text"
+              name="userlastname"
+              id="userlastname"
+              required
+              placeholder="Surname"
+              v-model="inputValueLastName"
+              @blur="v$.inputValueLastName.$touch"
+              :class="{
+                'error-border':
+                  v$.inputValueLastName.$invalid &&
+                  v$.inputValueLastName.$dirty,
+                'white-theme-select': !isBlackTheme,
+              }"
+            />
+            <div
+              data-name="error-last-name"
+              class="field__error"
+              v-if="
+                v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty
+              "
+            >
+              Required
+            </div>
           </div>
-        </div>
-        <button type="submit" class="reg-btn" :disabled="v$.$invalid">
-          Sign Up
-        </button>
-        <div class="divider-container">
-          <hr class="divider" />
-          <span
-            class="divider-text"
-            :class="{ 'white-theme-select': !isBlackTheme }"
-            >OR</span
-          >
-          <hr class="divider" />
-        </div>
-        <AuthButtons />
-      </form>
-      <button class="reg-button" @click="$emit('open-login')">
-        <span> Go to Registration </span>
-      </button>
+          <div class="fiel-input">
+            <input
+              class="input-birth-date"
+              type="text"
+              inputmode="text"
+              name="date"
+              id="date"
+              v-mask="'##/##/####'"
+              placeholder="Date of birth (DD/MM/YYYY)"
+              required
+              v-model="inputValueBirth"
+              @blur="v$.inputValueBirth.$touch"
+              :class="{
+                'error-border':
+                  v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty,
+                'white-theme-select': !isBlackTheme,
+              }"
+            />
+            <div
+              data-name="error-birth-date"
+              class="field__error"
+              v-if="v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty"
+            >
+              Required
+            </div>
+          </div>
+          <div class="fiel-input">
+            <div class="input-wrapper">
+              <input
+                class="input-password"
+                :type="showPassword ? 'text' : 'password'"
+                name="password"
+                id="password"
+                required
+                placeholder="Password"
+                v-model="inputValuePassword"
+                @blur="v$.inputValuePassword.$touch"
+                :class="{
+                  'error-border':
+                    v$.inputValuePassword.$invalid &&
+                    v$.inputValuePassword.$dirty,
+                  'white-theme-select': !isBlackTheme,
+                }"
+              />
+              <img
+                class="eye-closed"
+                @click="toggleShowPasswordIcon"
+                :src="eyeImageUrl"
+                alt="field__icon"
+              />
+            </div>
+            <div
+              data-name="error-password"
+              class="field__error"
+              v-if="
+                v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty
+              "
+            >
+              Required
+            </div>
+          </div>
+          <button type="submit" class="reg-btn">Sign Up</button>
+          <div class="divider-container">
+            <hr class="divider" />
+            <span
+              class="divider-text"
+              :class="{ 'white-theme-select': !isBlackTheme }"
+              >OR</span
+            >
+            <hr class="divider" />
+          </div>
+          <AuthButtons />
+        </form>
+      </div>
     </div>
   </div>
 </template>
@@ -252,6 +254,7 @@ defineExpose({
 }
 
 .popup {
+  position: relative;
   background: #222531;
   border-radius: 10px;
   max-width: 500px;
@@ -270,6 +273,9 @@ defineExpose({
 .popup-close {
   cursor: pointer;
   font-size: 35px;
+  position: absolute;
+  top: 0px;
+  right: 10px;
 }
 
 .reg-form {
@@ -409,10 +415,49 @@ defineExpose({
 
 .head-close-container {
   display: flex;
+  flex-direction: column;
+  justify-content: space-between; 
+  align-items: center;
+  height: 100%;
+}
+
+.inner-container {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.goToLogin,
+.goToRegistration {
+  position: relative;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 22px;
+  color: #fff;
+}
+
+.block {
+  position: absolute;
+  background: #6188ff;
+  pointer-events: none;
+  bottom: -13px;
+  height: 5px;
+  width: 28px;
+  border-radius: 100px;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.container {
+  display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
+  gap: 30px;
+  padding-bottom: 20px;
 }
+
 .eye-closed {
   position: absolute;
   left: 92%;
@@ -423,6 +468,10 @@ defineExpose({
   cursor: pointer;
 }
 
+.form {
+  padding: 5px 5px;
+  position: relative;
+}
 .fiel-input {
   position: relative;
 }
@@ -430,5 +479,14 @@ defineExpose({
   display: flex;
   align-items: center;
   position: relative;
+}
+
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
 }
 </style>
