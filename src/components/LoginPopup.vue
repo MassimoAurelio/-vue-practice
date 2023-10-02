@@ -1,5 +1,5 @@
 <script setup>
-import { defineProps, ref, toRefs } from "vue";
+import { defineProps, ref } from "vue";
 import AuthButtons from "./AuthButtons.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength } from "@vuelidate/validators";
@@ -59,7 +59,7 @@ const v$ = useVuelidate(rules, {
         <div class="head-close-container">
           <div class="container">
             <div class="inner-container">
-              <div class="goToLogin" @click="moveToLogin">Log in</div>
+              <div class="goToLogin">Log in</div>
               <div
                 class="block"
                 :class="{ 'move-block': showLoginBlock }"
@@ -346,13 +346,20 @@ const v$ = useVuelidate(rules, {
   align-items: center;
 }
 
-.goToLogin,
-.goToRegistration {
+.goToLogin {
   position: relative;
   cursor: pointer;
   font-weight: 700;
   font-size: 22px;
   color: #fff;
+}
+
+.goToRegistration {
+  position: relative;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 22px;
+  color: #a1a7bb;
 }
 
 .block {

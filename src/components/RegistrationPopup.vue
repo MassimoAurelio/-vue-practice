@@ -67,7 +67,6 @@ const v$ = useVuelidate(rules, {
           <div class="container">
             <div class="inner-container">
               <div class="goToLogin" @click="$emit('open-login')">Log-in</div>
-              
             </div>
             <div class="inner-container">
               <div class="goToRegistration">Sign Up</div>
@@ -416,7 +415,7 @@ const v$ = useVuelidate(rules, {
 .head-close-container {
   display: flex;
   flex-direction: column;
-  justify-content: space-between; 
+  justify-content: space-between;
   align-items: center;
   height: 100%;
 }
@@ -428,7 +427,14 @@ const v$ = useVuelidate(rules, {
   align-items: center;
 }
 
-.goToLogin,
+.goToLogin {
+  position: relative;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 22px;
+  color: #a1a7bb;
+}
+
 .goToRegistration {
   position: relative;
   cursor: pointer;

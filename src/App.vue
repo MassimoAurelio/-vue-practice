@@ -20,7 +20,6 @@ function closeRegistrationPopup() {
 function openLoginPopup() {
   isLoginPopupOpen.value = true;
 }
-
 function closeLoginPopup() {
   isLoginPopupOpen.value = false;
 }
@@ -37,25 +36,40 @@ const switchToLoginPopup = () => {
 
 <template>
   <div id="app">
-    <RegLogin
-      @open-registration="openRegistrationPopup"
-      @open-login="openLoginPopup"
-    />
+    <transition name="fade">
+      <RegLogin
+        @open-registration="openRegistrationPopup"
+        @open-login="openLoginPopup"
+      />
+    </transition>
     <Header :isBlackTheme="isBlackTheme" />
-    <RegistrationPopup
-      v-if="isRegistrationPopupOpen"
-      @close-registration="closeRegistrationPopup"
-      @open-login="switchToLoginPopup"
-    />
-    <LoginPopup
-      v-if="isLoginPopupOpen"
-      @close-login="closeLoginPopup"
-      :is-black-theme="isBlackTheme"
-      @open-registration="switchToRegistrationPopup"
-    />
+    <transition name="fade">
+      <RegistrationPopup
+        v-if="isRegistrationPopupOpen"
+        @close-registration="closeRegistrationPopup"
+        @open-login="switchToLoginPopup"
+      />
+    </transition>
+    <transition name="fade">
+      <LoginPopup
+        v-if="isLoginPopupOpen"
+        @close-login="closeLoginPopup"
+        :is-black-theme="isBlackTheme"
+        @open-registration="switchToRegistrationPopup"
+      />
+    </transition>
     <ScrollBack />
     <MainTable :is-black-theme="isBlackTheme" />
   </div>
 </template>
 
-<style></style>
+<style>
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+}
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+</style>
