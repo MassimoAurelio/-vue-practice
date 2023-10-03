@@ -69,7 +69,15 @@ const v$ = useVuelidate(rules, {
               <div class="goToLogin" @click="$emit('open-login')">Log-in</div>
             </div>
             <div class="inner-container">
-              <div class="goToRegistration">Sign Up</div>
+              <div
+                class="goToRegistration"
+                :class="{
+                  'black-theme': isBlackTheme,
+                  'white-theme': !isBlackTheme,
+                }"
+              >
+                Sign Up
+              </div>
               <div class="block"></div>
             </div>
           </div>
@@ -441,6 +449,20 @@ const v$ = useVuelidate(rules, {
   font-weight: 700;
   font-size: 22px;
   color: #fff;
+}
+
+.black-theme .goToRegistration {
+  color: #fff;
+  background: #222531;
+}
+
+.white-theme .goToLogin {
+  color: #586b93;
+}
+
+.white-theme .goToRegistration {
+  color: black;
+  background: #fff;
 }
 
 .block {

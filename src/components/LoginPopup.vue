@@ -59,7 +59,15 @@ const v$ = useVuelidate(rules, {
         <div class="head-close-container">
           <div class="container">
             <div class="inner-container">
-              <div class="goToLogin">Log in</div>
+              <div
+                class="goToLogin"
+                :class="{
+                  'black-theme': !isBlackTheme,
+                  'white-theme': isBlackTheme,
+                }"
+              >
+                Log in
+              </div>
               <div
                 class="block"
                 :class="{ 'move-block': showLoginBlock }"
@@ -160,7 +168,7 @@ const v$ = useVuelidate(rules, {
 
 <style scoped>
 .overlay {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -294,14 +302,6 @@ const v$ = useVuelidate(rules, {
   font-weight: bold;
 }
 
-.black-theme .popup {
-  background-color: #222531;
-}
-
-.white-theme-text {
-  color: #333;
-}
-
 .white-theme .input-email,
 .white-theme .input-first-name,
 .white-theme .input-last-name,
@@ -346,12 +346,22 @@ const v$ = useVuelidate(rules, {
   align-items: center;
 }
 
-.goToLogin {
+.black-theme .goToLogin {
   position: relative;
   cursor: pointer;
   font-weight: 700;
   font-size: 22px;
   color: #fff;
+  background: #222531;
+}
+
+.white-theme .goToLogin {
+  position: relative;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 22px;
+  color: black;
+  background: #fff;
 }
 
 .goToRegistration {

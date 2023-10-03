@@ -6,6 +6,7 @@ import ScrollBack from "./components/ScrollBack.vue";
 import RegLogin from "./components/RegLogin.vue";
 import RegistrationPopup from "./components/RegistrationPopup.vue";
 import LoginPopup from "./components/LoginPopup.vue";
+
 const isBlackTheme = ref(false);
 const isRegistrationPopupOpen = ref(false);
 const isLoginPopupOpen = ref(false);
@@ -37,12 +38,10 @@ const switchToLoginPopup = () => {
 <template>
   <div id="app">
     <transition name="fade">
-      <RegLogin
-        @open-registration="openRegistrationPopup"
-        @open-login="openLoginPopup"
-      />
+      <RegLogin @open-registration="openRegistrationPopup" @open-login="openLoginPopup" />
     </transition>
     <Header :isBlackTheme="isBlackTheme" />
+    <router-view></router-view>
     <transition name="fade">
       <RegistrationPopup
         v-if="isRegistrationPopupOpen"
@@ -59,7 +58,7 @@ const switchToLoginPopup = () => {
       />
     </transition>
     <ScrollBack />
-    <MainTable :is-black-theme="isBlackTheme" />
+    <!--  <MainTable :is-black-theme="isBlackTheme" /> -->
   </div>
 </template>
 

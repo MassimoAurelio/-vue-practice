@@ -53,7 +53,7 @@ const props = defineProps({
 }
 
 .black-theme .dropdown-menu {
-  background-color: #0d1421;
+  background-color: #222531;
   color: #fff;
 }
 
@@ -65,7 +65,7 @@ const props = defineProps({
   flex-direction: column;
   list-style-type: none;
   padding-left: 0;
-  background-color: #0d1421;
+  background-color: #222531;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 1;
   color: white;

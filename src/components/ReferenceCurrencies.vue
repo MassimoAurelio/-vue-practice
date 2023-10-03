@@ -1,22 +1,20 @@
 <script setup>
-import { ref, onMounted, defineProps, provide } from "vue";
-import { getCoins } from "../utils/api";
-
+import { ref, defineProps, onMounted } from "vue";
+import { REFERENCE_URL, referenceCryptos } from "../utils/api";
 const props = defineProps({
   isBlackTheme: {
     type: Boolean,
     required: true,
   },
 });
-
 const selectedCount = ref(10);
 const availableCounts = ref([10, 20, 50, 100]);
 const cryptos = ref([]);
 const openText = ref(false);
 
-async function fetchCoins() {
+async function refCrypto() {
   try {
-    const coins = await getCoins(selectedCount.value);
+    const coins = await referenceCryptos(selectedCount.value);
     cryptos.value = coins;
   } catch (error) {
     console.error(error);
@@ -24,30 +22,31 @@ async function fetchCoins() {
 }
 
 onMounted(() => {
-  fetchCoins();
+  refCrypto(selectedCount.value);
 });
-provide("fetchCoins", fetchCoins);
 </script>
 
 <template>
-  <div class="topCrypto">
+  <div class="referenceCrypto">
     <div class="title-container">
-      <h1>Today's Cryptocurrency Prices by Massimo</h1>
-      <div class="text-container">
+      <h1>Reference currencies</h1>
+      <div class="open-text">
         <p v-if="openText">
-          Coins are all the cryptocurrencies listed with us, like Bitcoin, Ethereum,
-          Dogecoin, and thousands more. Do you miss a particular coin you’d like to see in
-          the API? Submit it via our listing form and we’ll add it within two working
-          days.
+          The price of a coin is shown in a reference currency. Currencies include, but
+          are not limited to, coins. In contrast to coins, currencies also includes Fiat
+          currencies like US Dollar, EURO, YEN and more. Furthermore, currencies also
+          comprehends denominators as Satoshi and Wei (these are the atomic units for
+          respectively Bitcoin and Ethereum, or - perhaps overly simplified - one could
+          compare them with what the cent is to the Dollar.)
         </p>
-        <div @click="openText = !openText">
-          <span>{{ openText ? "Read Less" : "Read More" }}</span>
+        <div class="read-more" @click="openText = !openText">
+          <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
         </div>
       </div>
     </div>
     <select
       v-model="selectedCount"
-      @change="fetchCoins"
+      @change="() => refCrypto(selectedCount)"
       :class="{
         'white-theme-select': !isBlackTheme,
       }"
@@ -69,16 +68,14 @@ provide("fetchCoins", fetchCoins);
           <th></th>
           <th>#</th>
           <th>Name</th>
-          <th>Price</th>
-          <th>Volume(24h)</th>
-          <th>Сhange</th>
-          <th>MarketCap</th>
+          <th>symbol</th>
+          <th>type</th>
         </tr>
       </thead>
       <tbody id="crypto-container">
         <tr
           class="left"
-          v-for="(currency, index) in cryptos"
+          v-for="(currencies, index) in cryptos"
           :key="index"
           :class="{ 'black-theme': isBlackTheme }"
         >
@@ -87,19 +84,13 @@ provide("fetchCoins", fetchCoins);
             {{ index + 1 }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
-            <img :src="currency.iconUrl" alt="Currency Icon" />
-            {{ currency.name }}
+            <img :src="currencies.iconUrl" alt="Currency Icon" />
+            {{ currencies?.name }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
-            {{ parseFloat(currency.price).toFixed(2) }} $
+            {{ currencies?.symbol }} $
           </td>
-          <td :class="{ 'white-theme-text': !isBlackTheme }">
-            {{ currency ? currency["24hVolume"] : "" }} $
-          </td>
-          <td :class="{ 'white-theme-text': !isBlackTheme }">{{ currency.change }} $</td>
-          <td :class="{ 'white-theme-text': !isBlackTheme }">
-            {{ currency.marketCap }} $
-          </td>
+          <td :class="{ 'white-theme-text': !isBlackTheme }">{{ currencies?.type }} $</td>
         </tr>
       </tbody>
     </table>
@@ -120,11 +111,10 @@ h1 {
   margin-bottom: 1rem;
 }
 
-.topCrypto {
+.referenceCrypto {
   display: flex;
   flex-direction: column;
   gap: 1rem;
-
   max-width: 1300px;
   margin: 4rem auto;
 }
@@ -132,6 +122,10 @@ h1 {
 .title-container {
   text-align: left;
   width: 90%;
+}
+
+.text-button {
+  cursor: pointer;
 }
 
 select {
@@ -188,7 +182,6 @@ img {
   display: inline-block;
   vertical-align: middle;
 }
-
 th {
   text-align: left;
   padding: 8px;
