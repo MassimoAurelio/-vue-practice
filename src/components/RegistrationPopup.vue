@@ -22,9 +22,7 @@ const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
 function toggleShowPasswordIcon() {
   showPassword.value = !showPassword.value;
 
-  if (
-    eyeImageUrl.value === "https://stage.stellare.omgp.xyz/icons/eye-closed.svg"
-  ) {
+  if (eyeImageUrl.value === "https://stage.stellare.omgp.xyz/icons/eye-closed.svg") {
     eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-open.svg";
   } else {
     eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-closed.svg";
@@ -57,11 +55,7 @@ const v$ = useVuelidate(rules, {
 
 <template>
   <div class="overlay" id="reg-overlay">
-    <div
-      class="popup"
-      id="reg-popup"
-      :class="{ 'white-theme-select': !isBlackTheme }"
-    >
+    <div class="popup" id="reg-popup" :class="{ 'white-theme-select': !isBlackTheme }">
       <div class="form">
         <div class="head-close-container">
           <div class="container">
@@ -81,9 +75,7 @@ const v$ = useVuelidate(rules, {
               <div class="block"></div>
             </div>
           </div>
-          <a class="popup-close" @click="$emit('close-registration')">
-            &times;
-          </a>
+          <a class="popup-close" @click="$emit('close-registration')"> &times; </a>
         </div>
         <form
           class="reg-form"
@@ -103,8 +95,7 @@ const v$ = useVuelidate(rules, {
               v-model="inputValueEmail"
               @blur="v$.inputValueEmail.$touch"
               :class="{
-                'error-border':
-                  v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
+                'error-border': v$.inputValueEmail.$invalid && v$.inputValueEmail.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
@@ -128,8 +119,7 @@ const v$ = useVuelidate(rules, {
               v-model="inputValueName"
               @blur="v$.inputValueName.$touch"
               :class="{
-                'error-border':
-                  v$.inputValueName.$invalid && v$.inputValueName.$dirty,
+                'error-border': v$.inputValueName.$invalid && v$.inputValueName.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
@@ -154,17 +144,14 @@ const v$ = useVuelidate(rules, {
               @blur="v$.inputValueLastName.$touch"
               :class="{
                 'error-border':
-                  v$.inputValueLastName.$invalid &&
-                  v$.inputValueLastName.$dirty,
+                  v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
             <div
               data-name="error-last-name"
               class="field__error"
-              v-if="
-                v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty
-              "
+              v-if="v$.inputValueLastName.$invalid && v$.inputValueLastName.$dirty"
             >
               Required
             </div>
@@ -182,8 +169,7 @@ const v$ = useVuelidate(rules, {
               v-model="inputValueBirth"
               @blur="v$.inputValueBirth.$touch"
               :class="{
-                'error-border':
-                  v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty,
+                'error-border': v$.inputValueBirth.$invalid && v$.inputValueBirth.$dirty,
                 'white-theme-select': !isBlackTheme,
               }"
             />
@@ -208,8 +194,7 @@ const v$ = useVuelidate(rules, {
                 @blur="v$.inputValuePassword.$touch"
                 :class="{
                   'error-border':
-                    v$.inputValuePassword.$invalid &&
-                    v$.inputValuePassword.$dirty,
+                    v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty,
                   'white-theme-select': !isBlackTheme,
                 }"
               />
@@ -223,9 +208,7 @@ const v$ = useVuelidate(rules, {
             <div
               data-name="error-password"
               class="field__error"
-              v-if="
-                v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty
-              "
+              v-if="v$.inputValuePassword.$invalid && v$.inputValuePassword.$dirty"
             >
               Required
             </div>
@@ -233,9 +216,7 @@ const v$ = useVuelidate(rules, {
           <button type="submit" class="reg-btn">Sign Up</button>
           <div class="divider-container">
             <hr class="divider" />
-            <span
-              class="divider-text"
-              :class="{ 'white-theme-select': !isBlackTheme }"
+            <span class="divider-text" :class="{ 'white-theme-select': !isBlackTheme }"
               >OR</span
             >
             <hr class="divider" />
@@ -271,6 +252,10 @@ const v$ = useVuelidate(rules, {
   height: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   position: relative;
+}
+
+.black-theme .head-close-container {
+  color: white;
 }
 
 .popup-title {

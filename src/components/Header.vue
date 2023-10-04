@@ -17,18 +17,20 @@ const headerClasses = computed(() => ({
       <div class="header-left">
         <div class="logo-container">
           <router-link to="/">
-            <img
-              class="cmc-logo-img"
-              src="../assets/img/logo.svg"
-              alt=""
-              :class="{
-                'black-theme': isBlackTheme,
-                'white-theme': !isBlackTheme,
-              }"
-            />
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              class="logo"
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+            >
+              <path
+                d="M3 16h2v5H3zm4-3h2v8H7zm4-3h2v11h-2zm4-3h2v14h-2zm4-3h2v17h-2z"
+              ></path>
+            </svg>
           </router-link>
           <span>
-            <router-link to="/" class="home"></router-link>
+            <router-link to="/" class="home">CryptoMassimo</router-link>
           </span>
         </div>
         <div class="header-menu">
@@ -95,12 +97,36 @@ const headerClasses = computed(() => ({
 .header-right,
 .header-left {
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   font-weight: bold;
 }
 
 .logo-container {
   padding: 0 26px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.black-theme .logo {
+  fill: rgb(255, 255, 255);
+}
+
+.home {
+  font-size: 20px;
+}
+
+.black-theme .home {
+  text-decoration: none;
+  color: #ccc;
+}
+
+.white-theme .home {
+  text-decoration: none;
+  color: black;
 }
 
 * {
@@ -153,7 +179,7 @@ const headerClasses = computed(() => ({
 .dropdown-menu a {
   display: block;
   padding: 5px;
-  color: #333;
+  color: black;
   text-decoration: none;
 }
 

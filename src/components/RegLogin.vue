@@ -10,21 +10,19 @@ const props = defineProps({
 </script>
 
 <template>
-  
-    <div class="button-container">
-      <ToggleSwitch />
-      <button
-        class="login-button"
-        @click="$emit('open-login')"
-        :class="{ 'black-theme': isBlackTheme }"
-      >
-        <span> Log In </span>
-      </button>
-      <button class="reg-button" @click="$emit('open-registration')">
-        <span> Sign Up </span>
-      </button>
-    </div>
-  
+  <div class="button-container">
+    <ToggleSwitch />
+    <button
+      class="login-button"
+      @click="$emit('open-login')"
+      :class="{ 'black-theme': isBlackTheme }"
+    >
+      <span> Log In </span>
+    </button>
+    <button class="reg-button" @click="$emit('open-registration')">
+      <span> Sign Up </span>
+    </button>
+  </div>
 </template>
 
 <style scoped>
@@ -51,6 +49,13 @@ const props = defineProps({
   cursor: pointer;
   border-radius: 52px;
   background-color: 0.3s;
+}
+
+.reg-button:hover {
+  background-color: #2b4fd7;
+}
+.black-theme .login-button:hover {
+  background-color: #131d30;
 }
 
 .black-theme .login-button {

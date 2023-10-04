@@ -1,6 +1,7 @@
 <script setup>
 import { ref, onMounted, defineProps, provide } from "vue";
 import { getCoins } from "../utils/api";
+import ToolBar from "../components/ToolBar.vue";
 
 const props = defineProps({
   isBlackTheme: {
@@ -31,38 +32,49 @@ provide("fetchCoins", fetchCoins);
 
 <template>
   <div class="topCrypto">
-    <div class="title-container">
+    <div class="title-container" :class="{ 'black-theme': isBlackTheme }">
       <h1>Today's Cryptocurrency Prices by Massimo</h1>
       <div class="text-container">
-        <p v-if="openText">
+        <p v-if="openText" class="text">
           Coins are all the cryptocurrencies listed with us, like Bitcoin, Ethereum,
           Dogecoin, and thousands more. Do you miss a particular coin you’d like to see in
           the API? Submit it via our listing form and we’ll add it within two working
           days.
         </p>
         <div @click="openText = !openText">
-          <span>{{ openText ? "Read Less" : "Read More" }}</span>
+          <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
         </div>
       </div>
     </div>
-    <select
-      v-model="selectedCount"
-      @change="fetchCoins"
-      :class="{
-        'white-theme-select': !isBlackTheme,
-      }"
-    >
-      <option
-        v-for="count in availableCounts"
-        :value="count"
-        :key="count"
-        :class="{
-          'white-theme-option': !isBlackTheme,
-        }"
-      >
-        {{ count }}
-      </option>
-    </select>
+
+    <div class="scroll-child">
+      <div class="left-scroll">
+        <ToolBar />
+      </div>
+      <div class="right-scroll">
+        <select
+          v-model="selectedCount"
+          @change="fetchCoins"
+          class="selectCount"
+          :class="{
+            'white-theme-select': !isBlackTheme,
+          }"
+        >
+          <option
+            v-for="count in availableCounts"
+            :value="count"
+            :key="count"
+            :class="{
+              'white-theme-option': !isBlackTheme,
+              'black-theme-option': isBlackTheme,
+            }"
+          >
+            {{ count }}
+          </option>
+        </select>
+      </div>
+    </div>
+
     <table class="table">
       <thead>
         <tr>
@@ -109,7 +121,6 @@ provide("fetchCoins", fetchCoins);
 <style scoped>
 body {
   background-color: #f8f9fa;
-  color: black;
   margin: 0;
   padding: 0;
 }
@@ -134,23 +145,32 @@ h1 {
   width: 90%;
 }
 
-select {
-  box-sizing: border-box;
-  margin: 0px;
-  margin-left: 95%;
-  display: inline-flex;
-  flex-direction: row;
-  -webkit-box-align: center;
-  align-items: center;
-  background: rgb(50, 53, 70);
-  border-radius: 8px;
-  outline: 0px;
-  font-weight: 600;
+.text-button {
   cursor: pointer;
-  color: rgb(255, 255, 255);
-  padding: 5px 8px;
+  text-decoration: underline;
+  cursor: pointer;
+  font-weight: bold;
+}
+.text {
+  font-size: 14px;
+  font-weight: bold;
+}
+
+.scroll-child {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.selectCount {
+  border-radius: 8px;
+  box-sizing: border-box;
+  align-items: center;
+  font-weight: 600;
   font-size: 12px;
   line-height: 22px;
+  padding: 5px 8px;
 }
 
 select:focus {
@@ -160,6 +180,10 @@ select:focus {
 .black-theme select,
 option {
   background-color: #323546;
+  color: #f0f0f0;
+}
+
+.black-theme .title-container {
   color: #f0f0f0;
 }
 
@@ -196,7 +220,7 @@ th {
 }
 
 .black-theme table tr {
-  background-color: #17171a;
+  background-color: #0d1421;
 }
 
 .black-theme td,
@@ -209,20 +233,16 @@ th {
   border-bottom: none;
 }
 
-.white-theme-text {
-  color: black;
-}
-
 .white-theme-select {
   background-color: white;
-  color: #333;
   border: 1px solid #0d0d10;
   border: 1px solid rgb(194, 196, 204);
+  color: black;
 }
 
 .white-theme-option {
   background-color: white;
-  color: #333;
   border: 1px solid rgb(194, 196, 204);
+  color: black;
 }
 </style>

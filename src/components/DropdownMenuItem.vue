@@ -1,5 +1,13 @@
 <script setup>
 import { ref, defineProps } from "vue";
+
+const props = defineProps({
+  isBlackTheme: {
+    type: Boolean,
+    required: true,
+  },
+});
+
 const menuIsVisible = ref(false);
 
 const menuMouseOver = () => {
@@ -9,13 +17,6 @@ const menuMouseOver = () => {
 const menuMouseLeave = () => {
   menuIsVisible.value = false;
 };
-
-const props = defineProps({
-  isBlackTheme: {
-    type: Boolean,
-    required: true,
-  },
-});
 </script>
 
 <template>
@@ -44,9 +45,6 @@ const props = defineProps({
   color: #fff;
 }
 
-.dropdown-menu-item a {
-  color: inherit;
-}
 .white-theme .dropdown-menu {
   background-color: #ffffff;
   color: black;

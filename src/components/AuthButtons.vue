@@ -60,6 +60,16 @@ const props = defineProps({
   text-align: center;
 }
 
+.black-theme .google:hover,
+.black-theme .apple:hover {
+  background-color: #202020;
+}
+
+.white-theme .google:hover,
+.white-theme .apple:hover {
+  background-color: #d8d8d8;
+}
+
 .white-theme .apple,
 .white-theme .google {
   background-color: white;

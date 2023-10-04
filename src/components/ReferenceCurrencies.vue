@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineProps, onMounted } from "vue";
-import { REFERENCE_URL, referenceCryptos } from "../utils/api";
+import { referenceCryptos } from "../utils/api";
 const props = defineProps({
   isBlackTheme: {
     type: Boolean,
@@ -8,7 +8,7 @@ const props = defineProps({
   },
 });
 const selectedCount = ref(10);
-const availableCounts = ref([10, 20, 50, 100]);
+
 const cryptos = ref([]);
 const openText = ref(false);
 
@@ -28,10 +28,10 @@ onMounted(() => {
 
 <template>
   <div class="referenceCrypto">
-    <div class="title-container">
+    <div class="title-container" :class="{ 'black-theme': isBlackTheme }">
       <h1>Reference currencies</h1>
       <div class="open-text">
-        <p v-if="openText">
+        <p class="text" v-if="openText">
           The price of a coin is shown in a reference currency. Currencies include, but
           are not limited to, coins. In contrast to coins, currencies also includes Fiat
           currencies like US Dollar, EURO, YEN and more. Furthermore, currencies also
@@ -44,24 +44,6 @@ onMounted(() => {
         </div>
       </div>
     </div>
-    <select
-      v-model="selectedCount"
-      @change="() => refCrypto(selectedCount)"
-      :class="{
-        'white-theme-select': !isBlackTheme,
-      }"
-    >
-      <option
-        v-for="count in availableCounts"
-        :value="count"
-        :key="count"
-        :class="{
-          'white-theme-option': !isBlackTheme,
-        }"
-      >
-        {{ count }}
-      </option>
-    </select>
     <table class="table">
       <thead>
         <tr>
@@ -124,8 +106,20 @@ h1 {
   width: 90%;
 }
 
+.black-theme .title-container {
+  color: #f0f0f0;
+}
+
 .text-button {
   cursor: pointer;
+  text-decoration: underline;
+  cursor: pointer;
+
+  font-weight: bold;
+}
+.text {
+  font-size: 14px;
+  font-weight: bold;
 }
 
 select {
