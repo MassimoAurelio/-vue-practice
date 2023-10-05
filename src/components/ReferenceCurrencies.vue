@@ -66,7 +66,7 @@ onMounted(() => {
             {{ index + 1 }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
-            <img :src="currencies.iconUrl" alt="Currency Icon" />
+            <img loading="lazy" :src="currencies.iconUrl" alt="Currency Icon" />
             {{ currencies?.name }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
@@ -180,6 +180,10 @@ img {
   max-height: 40px;
   display: inline-block;
   vertical-align: middle;
+}
+
+.black-theme .left:hover {
+  background-color: #323546;
 }
 th {
   text-align: left;

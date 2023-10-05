@@ -62,7 +62,7 @@ const closeSearch = () => {
 <template>
   <div class="input-container" @click="openSearch">
     <div class="input-wrapper">
-      <input type="text" placeholder="Search" v-model="coins" />
+      <input type="text" placeholder=" Search" v-model="coins" />
       <span
         class="krest"
         v-if="menuIsVisible"
@@ -86,23 +86,24 @@ const closeSearch = () => {
 .input-container {
   display: flex;
   flex-direction: column;
-  width: 100%;
+  width: 210px;
   max-width: 500px;
-  margin: 0 auto;
   position: relative;
-  padding: 0 42px;
 }
 
 .input-wrapper {
   position: relative;
 }
 
+.input-wrapper input {
+  padding: 0;
+}
+
 input {
   font-size: 16px;
-  padding: 10px 16px;
+  height: 45px;
   box-sizing: border-box;
   width: 100%;
-  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 10px;
   display: inline-block;
@@ -115,13 +116,9 @@ input:focus {
 
 .krest {
   position: absolute;
-  cursor: pointer;
-  height: 30px;
-  width: 30px;
-  right: 2px;
-  top: 40%;
+  top: 45%;
+  right: 10px;
   transform: translateY(-50%);
-  font-size: 20px;
   font-weight: bold;
   color: #888;
 }
@@ -136,23 +133,22 @@ input:focus {
   background-color: white;
 }
 
+.search-result {
+  position: absolute;
+  width: 100%;
+  z-index: 20;
+  top: 55px;
+}
+
 ul {
-  list-style-type: none;
   margin: 0;
-  padding: 0;
   border: 1px solid #ccc;
   border-radius: 4px;
-  display: inline-block;
-  position: absolute;
-  left: 10;
-  top: calc(90% + 11px);
-  width: calc(100% - 52px);
-  box-sizing: border-box;
-  z-index: 10;
+  position: relative;
+  z-index: 20;
 }
 
 li {
-  padding: 10px 16px;
   border-bottom: 1px solid #ccc;
   font-size: 14px;
   color: #333;

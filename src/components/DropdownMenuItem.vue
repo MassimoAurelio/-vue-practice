@@ -56,7 +56,6 @@ const menuMouseLeave = () => {
 }
 
 .dropdown-menu {
-  /* margin-top: 5%; */
   position: absolute;
   top: 100%;
   left: 0;
@@ -73,5 +72,23 @@ const menuMouseLeave = () => {
   z-index: 1;
   color: white;
   border-radius: 10px;
+}
+
+.dropdown-menu::before {
+  content: "";
+  position: absolute;
+  top: -10px;
+  left: 40px;
+  border-width: 0 10px 10px 10px;
+  border-style: solid;
+  border-color: transparent transparent #222531 transparent;
+}
+
+.white-theme .dropdown-menu::before {
+  border-color: transparent transparent #ffffff transparent;
+}
+
+.black-theme .dropdown-menu::before {
+  border-color: transparent transparent #222531 transparent;
 }
 </style>

@@ -40,6 +40,7 @@ onMounted(() => {
         :src="isBlackTheme ? lightThemeImg : darkThemeImg"
         :style="{ filter: isBlackTheme ? 'invert(100%)' : '' }"
         alt="theme toggle"
+        loading="lazy"
       />
     </button>
   </div>

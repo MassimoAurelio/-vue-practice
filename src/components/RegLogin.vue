@@ -31,29 +31,37 @@ const props = defineProps({
   justify-content: flex-end;
   display: flex;
   align-items: center;
-  padding: 0 2%;
-  padding-top: 1%;
+  padding: 0px 16px;
+  padding-top: 10px;
 }
 
 .reg-button,
 .login-button {
-  background-color: #3861fb;
-  border: none;
-  color: white;
-  padding: 10px 20px;
-  text-align: center;
-  text-decoration: none;
-  font-size: 16px;
-  font-weight: bold;
-  margin: 4px 2px;
+  -webkit-box-align: center;
+  align-items: center;
+  background: transparent;
+  border: 1px solid rgb(50, 53, 70);
+  border-radius: 8px;
+  display: inline-flex;
+  color: rgb(255, 255, 255);
   cursor: pointer;
-  border-radius: 52px;
-  background-color: 0.3s;
+  -webkit-box-pack: center;
+  justify-content: center;
+  font-weight: 600;
+  min-width: 70px;
+  width: auto;
+  height: 32px;
+  font-size: 12px;
+  line-height: 18px;
 }
 
+.reg-button {
+  background-color: #2b4fd7;
+}
 .reg-button:hover {
   background-color: #2b4fd7;
 }
+
 .black-theme .login-button:hover {
   background-color: #131d30;
 }

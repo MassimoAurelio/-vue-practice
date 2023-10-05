@@ -18,7 +18,7 @@ const props = defineProps({
       }"
     >
       <div class="logo">
-        <img class="svg-fill" src="../assets/img/google.svg" alt="" />
+        <img class="svg-fill" loading="lazy" src="../assets/img/google.svg" alt="" />
       </div>
       <span>Continue with Google</span>
     </button>
@@ -30,7 +30,7 @@ const props = defineProps({
       }"
     >
       <div class="logo">
-        <img class="svg-fill" src="../assets/img/apple.svg" alt="" />
+        <img class="svg-fill" loading="lazy" src="../assets/img/apple.svg" alt="" />
       </div>
       <span>Continue with Apple</span>
     </button>

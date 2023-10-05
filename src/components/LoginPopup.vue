@@ -118,6 +118,7 @@ const v$ = useVuelidate(rules, {
                 @click="toggleShowPasswordIcon"
                 :src="eyeImageUrl"
                 alt="field__icon"
+                loading="lazy"
               />
             </div>
             <div

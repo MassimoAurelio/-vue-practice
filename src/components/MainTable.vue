@@ -99,7 +99,7 @@ provide("fetchCoins", fetchCoins);
             {{ index + 1 }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
-            <img :src="currency.iconUrl" alt="Currency Icon" />
+            <img loading="lazy" :src="currency.iconUrl" alt="Currency Icon" />
             {{ currency.name }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
@@ -133,6 +133,7 @@ h1 {
 
 .tr {
   color: #222531;
+  border-top: 1px solid #555555;
 }
 
 .topCrypto {
@@ -142,6 +143,10 @@ h1 {
 
   max-width: 1300px;
   margin: 4rem auto;
+}
+
+.black-theme .left:hover {
+  background-color: #323546;
 }
 
 .title-container {

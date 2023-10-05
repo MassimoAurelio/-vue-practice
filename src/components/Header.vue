@@ -6,7 +6,7 @@ import DropdownMenuItem from "./DropdownMenuItem.vue";
 const isBlackTheme = ref(false);
 
 const headerClasses = computed(() => ({
-  "global-header": true,
+  /* "global-header": true, */
   "black-theme": isBlackTheme.value,
 }));
 </script>
@@ -35,34 +35,112 @@ const headerClasses = computed(() => ({
         </div>
         <div class="header-menu">
           <DropdownMenuItem>
-            <div class="item">Cryptocurrencies</div>
-
+            <div class="item">
+              <span>Cryptocurrencies</span>
+            </div>
             <template #menu>
-              <router-link to="/" class="ranking">Ranking</router-link>
-              <router-link to="/reference" class="reference"
-                >Reference currencies</router-link
+              <router-link to="/" class="ranking">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg"
+                    loading="lazy"
+                  />Ranking
+                </div>
+              </router-link>
+
+              <router-link to="/reference" class="reference">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuRecentlyAddedIcon.svg"
+                    loading="lazy"
+                  />Reference currencies
+                </div></router-link
               >
-              <router-link to="/bestcoins" class="bestcoins">Best Coins</router-link>
-              <router-link to="/newcoins" class="newcoin">New Coins</router-link>
+              <router-link to="/bestcoins" class="bestcoins">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuSpotlightIcon.svg"
+                    loading="lazy"
+                  />Best Coins
+                </div></router-link
+              >
+              <router-link to="/newcoins" class="newcoin">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuGainersLosersIcon.svg"
+                    loading="lazy"
+                  />New Coins
+                </div></router-link
+              >
             </template>
           </DropdownMenuItem>
           <DropdownMenuItem>
             <div class="item">Exchanges</div>
             <template #menu>
-              <router-link to="/exchanges/ru/spot" class="spot">Spot</router-link>
-              <router-link to="/exchanges/ru/derivatives" class="derivatives"
-                >Derivatives</router-link
+              <router-link to="/exchanges/ru/spot" class="spot">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuGlobalChartsIcon.svg"
+                    loading="lazy"
+                  />Spot
+                </div></router-link
               >
-              <router-link to="/exchanges/ru/spot" class="spot">Spot</router-link>
+              <router-link to="/exchanges/ru/derivatives" class="derivatives"
+                ><div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuFiatsIcon.svg"
+                    loading="lazy"
+                  />Derivatives
+                </div></router-link
+              >
+              <router-link to="/exchanges/ru/spot" class="spot">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuFiatsIcon.svg"
+                    loading="lazy"
+                  />Spot
+                </div></router-link
+              >
             </template>
           </DropdownMenuItem>
 
           <DropdownMenuItem>
             <div class="item">Community</div>
             <template #menu>
-              <router-link to="/community/ru/feeds" class="feeds">Feeds</router-link>
-              <router-link to="/community/ru/topics" class="topics">Topics</router-link>
-              <router-link to="/community/ru/lives" class="lives">Lives</router-link>
+              <router-link to="/community/ru/feeds" class="feeds">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg"
+                    loading="lazy"
+                  />Feeds
+                </div></router-link
+              >
+              <router-link to="/community/ru/topics" class="topics">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg"
+                    loading="lazy"
+                  />Topics
+                </div></router-link
+              >
+              <router-link to="/community/ru/lives" class="lives">
+                <div class="router-link-content">
+                  <img
+                    size="32"
+                    src="https://s2.coinmarketcap.com/static/cloud/img/menu/MenuCmcIcon.svg"
+                    loading="lazy"
+                  />Lives
+                </div></router-link
+              >
             </template>
           </DropdownMenuItem>
 
@@ -100,12 +178,36 @@ const headerClasses = computed(() => ({
   font-weight: bold;
 }
 
+.item {
+  color: #ffffff;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  padding: 24px 16px;
+  min-height: 71px;
+}
+
 .item:hover {
   color: #6188ff !important;
 }
 
-.white-theme.item {
+img {
+  height: 25px;
+  width: 25px;
+  margin-right: 10px;
+}
+
+.router-link-content {
+  display: flex;
+  align-items: center;
+}
+
+.white-theme .item {
   color: #222531;
+}
+
+.black-theme .item {
+  color: #fff;
 }
 
 .logo-container {
@@ -155,6 +257,9 @@ const headerClasses = computed(() => ({
   margin-top: 10px;
   width: 100%;
   position: relative;
+  padding: 0px 8px;
+  border-top: 1px solid #555555;
+  border-bottom: 1px solid #555555;
 }
 
 .dropdown-menu {
