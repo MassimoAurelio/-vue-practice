@@ -56,6 +56,7 @@ const menuMouseLeave = () => {
 }
 
 .dropdown-menu {
+  /* margin-top: 5%; */
   position: absolute;
   top: 100%;
   left: 0;
@@ -63,9 +64,14 @@ const menuMouseLeave = () => {
   flex-direction: column;
   list-style-type: none;
   padding-left: 0;
+  min-width: 100px;
+  width: auto;
+  min-height: 0px;
+  height: auto;
   background-color: #222531;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
   z-index: 1;
   color: white;
+  border-radius: 10px;
 }
 </style>

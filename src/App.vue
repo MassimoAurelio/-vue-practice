@@ -1,7 +1,6 @@
 <script setup>
 import { ref } from "vue";
 import Header from "./components/Header.vue";
-import MainTable from "./components/MainTable.vue";
 import ScrollBack from "./components/ScrollBack.vue";
 import RegLogin from "./components/RegLogin.vue";
 import RegistrationPopup from "./components/RegistrationPopup.vue";
@@ -58,7 +57,6 @@ const switchToLoginPopup = () => {
       />
     </transition>
     <ScrollBack />
-    <!--  <MainTable :is-black-theme="isBlackTheme" /> -->
   </div>
 </template>
 

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, defineProps, provide } from "vue";
 import { getCoins } from "../utils/api";
-import ToolBar from "../components/ToolBar.vue";
+import ToolBar from "../components/ScrollChild.vue";
 
 const props = defineProps({
   isBlackTheme: {
@@ -77,7 +77,7 @@ provide("fetchCoins", fetchCoins);
 
     <table class="table">
       <thead>
-        <tr>
+        <tr class="tr">
           <th></th>
           <th>#</th>
           <th>Name</th>
@@ -131,6 +131,10 @@ h1 {
   margin-bottom: 1rem;
 }
 
+.tr {
+  color: #222531;
+}
+
 .topCrypto {
   display: flex;
   flex-direction: column;
@@ -143,6 +147,12 @@ h1 {
 .title-container {
   text-align: left;
   width: 90%;
+  margin-bottom: 3%;
+}
+
+.text,
+.text-button {
+  color: #858ca2;
 }
 
 .text-button {
@@ -185,6 +195,9 @@ option {
 
 .black-theme .title-container {
   color: #f0f0f0;
+}
+.white-theme .title-container {
+  color: #222531;
 }
 
 table {
@@ -237,12 +250,12 @@ th {
   background-color: white;
   border: 1px solid #0d0d10;
   border: 1px solid rgb(194, 196, 204);
-  color: black;
+  color: #222531;
 }
 
 .white-theme-option {
   background-color: white;
   border: 1px solid rgb(194, 196, 204);
-  color: black;
+  color: #222531;
 }
 </style>

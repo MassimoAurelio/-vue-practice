@@ -1,43 +1,38 @@
 <script setup>
 import { ref, defineProps, onMounted } from "vue";
-import { referenceCryptos } from "../utils/api";
+
 const props = defineProps({
   isBlackTheme: {
     type: Boolean,
     required: true,
   },
 });
-const selectedCount = ref(10);
 
-const cryptos = ref([]);
 const openText = ref(false);
+const newCoin = ref([]);
 
-async function refCrypto() {
+async function newCoins() {
   try {
-    const coins = await referenceCryptos(selectedCount.value);
-    cryptos.value = coins;
+    const response = await fetch("https://api.coinranking.com/v2/stats");
+    const result = await response.json();
+    newCoin.value = result.data.newestCoins;
   } catch (error) {
-    console.error(error);
+    console.error("Ошибка:", error);
   }
 }
 
 onMounted(() => {
-  refCrypto(selectedCount.value);
+  newCoins();
 });
 </script>
 
 <template>
   <div class="referenceCrypto">
     <div class="title-container" :class="{ 'black-theme': isBlackTheme }">
-      <h1>Reference currencies</h1>
+      <h1>New Coins</h1>
       <div class="open-text">
         <p class="text" v-if="openText">
-          The price of a coin is shown in a reference currency. Currencies include, but
-          are not limited to, coins. In contrast to coins, currencies also includes Fiat
-          currencies like US Dollar, EURO, YEN and more. Furthermore, currencies also
-          comprehends denominators as Satoshi and Wei (these are the atomic units for
-          respectively Bitcoin and Ethereum, or - perhaps overly simplified - one could
-          compare them with what the cent is to the Dollar.)
+          These global statistics tell about the data available on coinranking.
         </p>
         <div class="read-more" @click="openText = !openText">
           <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
@@ -51,13 +46,13 @@ onMounted(() => {
           <th>#</th>
           <th>Name</th>
           <th>symbol</th>
-          <th>type</th>
+          <th>uuid</th>
         </tr>
       </thead>
       <tbody id="crypto-container">
         <tr
           class="left"
-          v-for="(currencies, index) in cryptos"
+          v-for="(currencies, index) in newCoin"
           :key="index"
           :class="{ 'black-theme': isBlackTheme }"
         >
@@ -70,9 +65,11 @@ onMounted(() => {
             {{ currencies?.name }}
           </td>
           <td :class="{ 'white-theme-text': !isBlackTheme }">
-            {{ currencies?.symbol }} $
+            {{ currencies?.symbol }}
           </td>
-          <td :class="{ 'white-theme-text': !isBlackTheme }">{{ currencies?.type }} $</td>
+          <td :class="{ 'white-theme-text': !isBlackTheme }">
+            {{ currencies?.uuid }}
+          </td>
         </tr>
       </tbody>
     </table>

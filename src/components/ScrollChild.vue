@@ -72,6 +72,10 @@ const props = defineProps({
 }
 
 .white-theme .Cryptocurrencies {
-  color: black;
+  color: #222531;
+}
+
+.black-theme .Cryptocurrencies:hover {
+  background-color: #323546;
 }
 </style>

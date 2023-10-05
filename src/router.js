@@ -11,6 +11,16 @@ const routes = [
     name: "Reference",
     component: () => import("./components/ReferenceCurrencies.vue"),
   },
+  {
+    path: "/bestcoins",
+    name: "Bestcoins",
+    component: () => import("./components/BestCoins.vue"),
+  },
+  {
+    path: "/newcoins",
+    name: "Newcoins",
+    component: () => import("./components/NewCoins.vue"),
+  },
 ];
 
 const router = createRouter({

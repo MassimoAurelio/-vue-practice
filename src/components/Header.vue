@@ -35,22 +35,19 @@ const headerClasses = computed(() => ({
         </div>
         <div class="header-menu">
           <DropdownMenuItem>
-            Cryptocurrencies
+            <div class="item">Cryptocurrencies</div>
+
             <template #menu>
               <router-link to="/" class="ranking">Ranking</router-link>
               <router-link to="/reference" class="reference"
                 >Reference currencies</router-link
               >
-              <router-link to="cryptocurrencies/ru/categories" class="categories"
-                >Categories</router-link
-              >
-              <router-link to="cryptocurrencies/ru/spotlight" class="spotlight"
-                >Spotlight</router-link
-              >
+              <router-link to="/bestcoins" class="bestcoins">Best Coins</router-link>
+              <router-link to="/newcoins" class="newcoin">New Coins</router-link>
             </template>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            Exchanges
+            <div class="item">Exchanges</div>
             <template #menu>
               <router-link to="/exchanges/ru/spot" class="spot">Spot</router-link>
               <router-link to="/exchanges/ru/derivatives" class="derivatives"
@@ -61,7 +58,7 @@ const headerClasses = computed(() => ({
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            Community
+            <div class="item">Community</div>
             <template #menu>
               <router-link to="/community/ru/feeds" class="feeds">Feeds</router-link>
               <router-link to="/community/ru/topics" class="topics">Topics</router-link>
@@ -70,7 +67,7 @@ const headerClasses = computed(() => ({
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            Products
+            <div class="item">Products</div>
             <template #menu>
               <router-link to="/products/ru/converter" class="converter"
                 >Converter</router-link
@@ -103,6 +100,14 @@ const headerClasses = computed(() => ({
   font-weight: bold;
 }
 
+.item:hover {
+  color: #6188ff !important;
+}
+
+.white-theme.item {
+  color: #222531;
+}
+
 .logo-container {
   padding: 0 26px;
   display: flex;
@@ -126,7 +131,7 @@ const headerClasses = computed(() => ({
 
 .white-theme .home {
   text-decoration: none;
-  color: black;
+  color: #222531;
 }
 
 * {
@@ -179,7 +184,7 @@ const headerClasses = computed(() => ({
 .dropdown-menu a {
   display: block;
   padding: 5px;
-  color: black;
+  color: #222531;
   text-decoration: none;
 }
 

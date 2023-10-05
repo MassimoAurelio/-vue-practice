@@ -16,14 +16,11 @@ const props = defineProps({
 
 const fetchCoins = async (query) => {
   try {
-    const response = await fetch(
-      `${BASE_URL}search-suggestions?query=${query}`,
-      {
-        headers: {
-          "X-CoinAPI-Key": API_KEY,
-        },
-      }
-    );
+    const response = await fetch(`${BASE_URL}search-suggestions?query=${query}`, {
+      headers: {
+        "X-CoinAPI-Key": API_KEY,
+      },
+    });
 
     if (response.status === 429) {
       console.error("Слишком много запросов, пожалуйста, подождите...");
@@ -107,7 +104,7 @@ input {
   width: 100%;
   margin-bottom: 10px;
   border: 1px solid #ccc;
-  border-radius: 4px;
+  border-radius: 10px;
   display: inline-block;
 }
 
