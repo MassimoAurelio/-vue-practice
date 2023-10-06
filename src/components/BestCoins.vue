@@ -11,7 +11,7 @@ const props = defineProps({
 const openText = ref(false);
 const bestCoin = ref([]);
 
-async function bestCoins() {
+async function fetchBestCoins() {
   try {
     const response = await fetch("https://api.coinranking.com/v2/stats");
     const result = await response.json();
@@ -22,22 +22,24 @@ async function bestCoins() {
 }
 
 onMounted(() => {
-  bestCoins();
+  fetchBestCoins();
 });
 </script>
 
 <template>
   <div class="referenceCrypto">
     <div class="title-container" :class="{ 'black-theme': isBlackTheme }">
-      <h1>Best Coins</h1>
-      <div class="open-text">
-        <p class="text" v-if="openText">
-          These global statistics tell about the data available on coinranking.
-        </p>
-        <div class="read-more" @click="openText = !openText">
-          <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
+      <section>
+        <h1>Best Coins</h1>
+        <div class="open-text">
+          <p class="text" v-if="openText">
+            These global statistics tell about the data available on coinranking.
+          </p>
+          <div class="read-more" @click="openText = !openText">
+            <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
     <table class="table">
       <thead>
@@ -110,8 +112,6 @@ h1 {
 .text-button {
   cursor: pointer;
   text-decoration: underline;
-  cursor: pointer;
-
   font-weight: bold;
 }
 .text {

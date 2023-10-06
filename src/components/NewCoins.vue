@@ -29,15 +29,17 @@ onMounted(() => {
 <template>
   <div class="referenceCrypto">
     <div class="title-container" :class="{ 'black-theme': isBlackTheme }">
-      <h1>New Coins</h1>
-      <div class="open-text">
-        <p class="text" v-if="openText">
-          These global statistics tell about the data available on coinranking.
-        </p>
-        <div class="read-more" @click="openText = !openText">
-          <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
+      <section>
+        <h1>New Coins</h1>
+        <div class="open-text">
+          <p class="text" v-if="openText">
+            These global statistics tell about the data available on coinranking.
+          </p>
+          <div class="read-more" @click="openText = !openText">
+            <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
     <table class="table">
       <thead>

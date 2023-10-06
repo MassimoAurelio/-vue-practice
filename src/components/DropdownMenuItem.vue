@@ -10,13 +10,13 @@ const props = defineProps({
 
 const menuIsVisible = ref(false);
 
-const menuMouseOver = () => {
+function menuMouseOver() {
   menuIsVisible.value = true;
-};
+}
 
-const menuMouseLeave = () => {
+function menuMouseLeave() {
   menuIsVisible.value = false;
-};
+}
 </script>
 
 <template>
@@ -62,8 +62,7 @@ const menuMouseLeave = () => {
   display: flex;
   flex-direction: column;
   list-style-type: none;
-  padding-left: 0;
-  min-width: 100px;
+  min-width: 170px;
   width: auto;
   min-height: 0px;
   height: auto;
@@ -72,6 +71,7 @@ const menuMouseLeave = () => {
   z-index: 1;
   color: white;
   border-radius: 10px;
+  padding: 10px;
 }
 
 .dropdown-menu::before {

@@ -23,15 +23,16 @@ function openLoginPopup() {
 function closeLoginPopup() {
   isLoginPopupOpen.value = false;
 }
-const switchToRegistrationPopup = () => {
+
+function switchToRegistrationPopup() {
   isLoginPopupOpen.value = false;
   isRegistrationPopupOpen.value = true;
-};
+}
 
-const switchToLoginPopup = () => {
+function switchToLoginPopup() {
   isLoginPopupOpen.value = true;
   isRegistrationPopupOpen.value = false;
-};
+}
 </script>
 
 <template>

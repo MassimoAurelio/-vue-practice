@@ -6,7 +6,6 @@ import DropdownMenuItem from "./DropdownMenuItem.vue";
 const isBlackTheme = ref(false);
 
 const headerClasses = computed(() => ({
-  /* "global-header": true, */
   "black-theme": isBlackTheme.value,
 }));
 </script>
@@ -33,9 +32,9 @@ const headerClasses = computed(() => ({
             <router-link to="/" class="home">CryptoMassimo</router-link>
           </span>
         </div>
-        <div class="header-menu">
+        <nav class="header-menu">
           <DropdownMenuItem>
-            <div class="item">
+            <div class="item" role="button" aria-haspopup="true" aria-expanded="false">
               <span>Cryptocurrencies</span>
             </div>
             <template #menu>
@@ -79,7 +78,9 @@ const headerClasses = computed(() => ({
             </template>
           </DropdownMenuItem>
           <DropdownMenuItem>
-            <div class="item">Exchanges</div>
+            <div class="item" role="button" aria-haspopup="true" aria-expanded="false">
+              Exchanges
+            </div>
             <template #menu>
               <router-link to="/exchanges/ru/spot" class="spot">
                 <div class="router-link-content">
@@ -112,7 +113,9 @@ const headerClasses = computed(() => ({
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            <div class="item">Community</div>
+            <div class="item" role="button" aria-haspopup="true" aria-expanded="false">
+              Community
+            </div>
             <template #menu>
               <router-link to="/community/ru/feeds" class="feeds">
                 <div class="router-link-content">
@@ -145,7 +148,9 @@ const headerClasses = computed(() => ({
           </DropdownMenuItem>
 
           <DropdownMenuItem>
-            <div class="item">Products</div>
+            <div class="item" role="button" aria-haspopup="true" aria-expanded="false">
+              Products
+            </div>
             <template #menu>
               <router-link to="/products/ru/converter" class="converter"
                 >Converter</router-link
@@ -156,7 +161,7 @@ const headerClasses = computed(() => ({
           </DropdownMenuItem>
 
           <div class="learn" data-role="menu-item"></div>
-        </div>
+        </nav>
       </div>
       <div class="header-right">
         <ToggleSwitch v-model="isBlackTheme" />
@@ -257,7 +262,7 @@ img {
   margin-top: 10px;
   width: 100%;
   position: relative;
-  padding: 0px 8px;
+  padding: 0px 16px;
   border-top: 1px solid #555555;
   border-bottom: 1px solid #555555;
 }

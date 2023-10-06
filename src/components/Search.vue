@@ -2,10 +2,7 @@
 import { ref, watch, defineProps } from "vue";
 import { debounce } from "lodash-es";
 import { API_KEY, BASE_URL } from "../utils/api";
-
-const coins = ref("");
-const items = ref([]);
-const menuIsVisible = ref(false);
+import { onClickOutside } from "@vueuse/core";
 
 const props = defineProps({
   isBlackTheme: {
@@ -13,6 +10,11 @@ const props = defineProps({
     required: true,
   },
 });
+
+const coins = ref("");
+const items = ref([]);
+const menuIsVisible = ref(false);
+const coinsRef = ref(null);
 
 const fetchCoins = async (query) => {
   try {
@@ -49,16 +51,19 @@ const closeSearchAndClearInput = () => {
   closeSearch();
 };
 
+onClickOutside(coinsRef, () => {
+  menuIsVisible.value = false;
+  coins.value = "";
+});
+
 const openSearch = (event) => {
   event.stopPropagation();
   menuIsVisible.value = true;
 };
-
 const closeSearch = () => {
   menuIsVisible.value = false;
 };
 </script>
-
 <template>
   <div class="input-container" @click="openSearch">
     <div class="input-wrapper">
@@ -66,7 +71,7 @@ const closeSearch = () => {
       <span
         class="krest"
         v-if="menuIsVisible"
-        v-click-outside="closeSearchAndClearInput"
+        ref="coinsRef"
         @click.stop="closeSearchAndClearInput"
         :class="{ 'black-theme': isBlackTheme, 'white-theme': !isBlackTheme }"
         >&times;
@@ -97,6 +102,10 @@ const closeSearch = () => {
 
 .input-wrapper input {
   padding: 0;
+}
+
+input:focus {
+  text-indent: 5px;
 }
 
 input {
@@ -135,6 +144,7 @@ input:focus {
 
 .search-result {
   position: absolute;
+  cursor: pointer;
   width: 100%;
   z-index: 20;
   top: 55px;
@@ -143,6 +153,7 @@ input:focus {
 ul {
   margin: 0;
   border: 1px solid #ccc;
+  padding-left: 10%;
   border-radius: 4px;
   position: relative;
   z-index: 20;

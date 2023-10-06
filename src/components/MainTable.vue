@@ -153,6 +153,7 @@ h1 {
   text-align: left;
   width: 90%;
   margin-bottom: 3%;
+  margin-top: -3%;
 }
 
 .text,

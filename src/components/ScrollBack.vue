@@ -2,6 +2,13 @@
 import { ref, onMounted, onUnmounted } from "vue";
 const showButton = ref(false);
 
+const props = defineProps({
+  isBlackTheme: {
+    type: Boolean,
+    required: true,
+  },
+});
+
 const checkScroll = () => {
   showButton.value = window.scrollY > 200;
 };
@@ -18,13 +25,6 @@ const scrollToTop = () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
   console.log;
 };
-
-const props = defineProps({
-  isBlackTheme: {
-    type: Boolean,
-    required: true,
-  },
-});
 </script>
 
 <template>

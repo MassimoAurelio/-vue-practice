@@ -18,7 +18,12 @@ const props = defineProps({
       }"
     >
       <div class="logo">
-        <img class="svg-fill" loading="lazy" src="../assets/img/google.svg" alt="" />
+        <img
+          class="svg-fill"
+          loading="lazy"
+          src="../assets/img/google.svg"
+          alt="Google logo"
+        />
       </div>
       <span>Continue with Google</span>
     </button>
@@ -30,7 +35,12 @@ const props = defineProps({
       }"
     >
       <div class="logo">
-        <img class="svg-fill" loading="lazy" src="../assets/img/apple.svg" alt="" />
+        <img
+          class="svg-fill"
+          loading="lazy"
+          src="../assets/img/apple.svg"
+          alt="Apple logo"
+        />
       </div>
       <span>Continue with Apple</span>
     </button>
@@ -77,12 +87,10 @@ const props = defineProps({
   border: 1px solid rgb(194, 196, 204);
 }
 
-.white-theme .svg-fill,
 .white-theme .svg-fill {
   fill: black;
 }
 
-.black-theme .svg-fill,
 .black-theme .svg-fill {
   fill: #fff;
 }

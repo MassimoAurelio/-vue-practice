@@ -3,6 +3,7 @@ import { defineProps, ref } from "vue";
 import AuthButtons from "./AuthButtons.vue";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minLength } from "@vuelidate/validators";
+import { BASE_ICON_URL } from "../utils/api";
 
 const props = defineProps({
   isBlackTheme: {
@@ -14,13 +15,13 @@ const props = defineProps({
 function toggleShowPasswordIcon() {
   showPassword.value = !showPassword.value;
 
-  if (eyeImageUrl.value === "https://stage.stellare.omgp.xyz/icons/eye-closed.svg") {
-    eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-open.svg";
+  if (eyeImageUrl.value === `${BASE_ICON_URL}eye-closed.svg`) {
+    eyeImageUrl.value = `${BASE_ICON_URL}eye-open.svg`;
   } else {
-    eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-closed.svg";
+    eyeImageUrl.value = `${BASE_ICON_URL}eye-closed.svg`;
   }
 }
-const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
+const eyeImageUrl = ref(`${BASE_ICON_URL}eye-closed.svg`);
 const inputValueEmail = ref("");
 const inputValuePassword = ref("");
 const showPassword = ref(false);
@@ -34,10 +35,8 @@ function handleSubmit() {
   v$.$touch();
 
   if (v$.$invalid) {
-    console.log(v$.$invalid);
     return;
   }
-  console.log("Form submitted successfully");
 }
 
 const v$ = useVuelidate(rules, {

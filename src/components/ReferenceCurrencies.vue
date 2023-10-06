@@ -29,20 +29,22 @@ onMounted(() => {
 <template>
   <div class="referenceCrypto">
     <div class="title-container" :class="{ 'black-theme': isBlackTheme }">
-      <h1>Reference currencies</h1>
-      <div class="open-text">
-        <p class="text" v-if="openText">
-          The price of a coin is shown in a reference currency. Currencies include, but
-          are not limited to, coins. In contrast to coins, currencies also includes Fiat
-          currencies like US Dollar, EURO, YEN and more. Furthermore, currencies also
-          comprehends denominators as Satoshi and Wei (these are the atomic units for
-          respectively Bitcoin and Ethereum, or - perhaps overly simplified - one could
-          compare them with what the cent is to the Dollar.)
-        </p>
-        <div class="read-more" @click="openText = !openText">
-          <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
+      <section>
+        <h1>Reference currencies</h1>
+        <div class="open-text">
+          <p class="text" v-if="openText">
+            The price of a coin is shown in a reference currency. Currencies include, but
+            are not limited to, coins. In contrast to coins, currencies also includes Fiat
+            currencies like US Dollar, EURO, YEN and more. Furthermore, currencies also
+            comprehends denominators as Satoshi and Wei (these are the atomic units for
+            respectively Bitcoin and Ethereum, or - perhaps overly simplified - one could
+            compare them with what the cent is to the Dollar.)
+          </p>
+          <div class="read-more" @click="openText = !openText">
+            <span class="text-button">{{ openText ? "Read Less" : "Read More" }}</span>
+          </div>
         </div>
-      </div>
+      </section>
     </div>
     <table class="table">
       <thead>
