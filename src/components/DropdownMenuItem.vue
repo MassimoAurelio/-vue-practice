@@ -10,13 +10,13 @@ const props = defineProps({
 
 const menuIsVisible = ref(false);
 
-function menuMouseOver() {
+const menuMouseOver = () => {
   menuIsVisible.value = true;
-}
+};
 
-function menuMouseLeave() {
+const menuMouseLeave = () => {
   menuIsVisible.value = false;
-}
+};
 </script>
 
 <template>

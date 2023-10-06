@@ -10,41 +10,9 @@ export const REFERENCE_URL =
 
 export const BASE_ICON_URL = "https://stage.stellare.omgp.xyz/icons/";
 
-export async function getCoins(limit) {
-  const url = `${BASE_URL}coins?limit=${limit}`;
-  try {
-    const response = await fetch(url);
 
-    if (!response.ok) {
-      throw new Error("Network response error");
-    }
-    const data = await response.json();
-    return data.data.coins;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-export async function referenceCryptos(limit = 10) {
-  const url = `${REFERENCE_URL}?coins=${limit}`;
-  try {
-    const response = await fetch(url);
-
-    if (!response.ok) {
-      throw new Error("Network response error");
-    }
-
-    const data = await response.json();
-    return data.data.currencies;
-  } catch (error) {
-    console.error(error);
-    throw error;
-  }
-}
-
-export const options = {
+export const options = () => ({
   headers: {
     "x-access-token": API_KEY,
   },
-};
+});

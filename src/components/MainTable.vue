@@ -1,6 +1,6 @@
 <script setup>
 import { ref, onMounted, defineProps, provide } from "vue";
-import { getCoins } from "../utils/api";
+import { BASE_URL } from "../utils/api";
 import ToolBar from "../components/ScrollChild.vue";
 
 const props = defineProps({
@@ -15,14 +15,30 @@ const availableCounts = ref([10, 20, 50, 100]);
 const cryptos = ref([]);
 const openText = ref(false);
 
-async function fetchCoins() {
+const getCoins = async (limit) => {
+  const url = `${BASE_URL}coins?limit=${limit}`;
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Network response error");
+    }
+    const data = await response.json();
+    return data.data.coins;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const fetchCoins = async () => {
   try {
     const coins = await getCoins(selectedCount.value);
     cryptos.value = coins;
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 onMounted(() => {
   fetchCoins();
@@ -209,6 +225,7 @@ option {
 table {
   border-collapse: collapse;
   width: 100%;
+  cursor: pointer;
 }
 
 table tr {

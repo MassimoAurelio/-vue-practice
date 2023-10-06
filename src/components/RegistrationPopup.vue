@@ -19,7 +19,7 @@ const inputValueBirth = ref("");
 const inputValuePassword = ref("");
 const eyeImageUrl = ref("https://stage.stellare.omgp.xyz/icons/eye-closed.svg");
 
-function toggleShowPasswordIcon() {
+const toggleShowPasswordIcon = () => {
   showPassword.value = !showPassword.value;
 
   if (eyeImageUrl.value === "https://stage.stellare.omgp.xyz/icons/eye-closed.svg") {
@@ -27,7 +27,7 @@ function toggleShowPasswordIcon() {
   } else {
     eyeImageUrl.value = "https://stage.stellare.omgp.xyz/icons/eye-closed.svg";
   }
-}
+};
 
 const rules = {
   inputValueEmail: { required },
@@ -37,12 +37,11 @@ const rules = {
   inputValuePassword: { required, minLength: minLength(6) },
 };
 
-function handleSubmit() {
+const handleSubmit = () => {
   if (v$.$invalid) {
     return;
   }
-  console.log("Form submitted successfully");
-}
+};
 
 const v$ = useVuelidate(rules, {
   inputValueEmail,

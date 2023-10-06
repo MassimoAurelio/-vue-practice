@@ -6,7 +6,7 @@ const emits = defineEmits(["update:isBlackTheme"]);
 const lightThemeImg = "/src/assets/img/sun.svg";
 const darkThemeImg = "/src/assets/img/moon.svg";
 
-function toggleTheme() {
+const toggleTheme = () => {
   isBlackTheme.value = !isBlackTheme.value;
   localStorage.setItem("selectedTheme", isBlackTheme.value ? "black" : "white");
   emits("update:isBlackTheme", isBlackTheme.value);
@@ -17,7 +17,7 @@ function toggleTheme() {
     document.body.classList.add("white-theme");
     document.body.classList.remove("black-theme");
   }
-}
+};
 
 onMounted(() => {
   toggleTheme();

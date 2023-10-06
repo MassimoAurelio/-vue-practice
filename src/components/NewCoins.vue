@@ -11,7 +11,7 @@ const props = defineProps({
 const openText = ref(false);
 const newCoin = ref([]);
 
-async function newCoins() {
+const newCoins = async () => {
   try {
     const response = await fetch("https://api.coinranking.com/v2/stats");
     const result = await response.json();
@@ -19,7 +19,7 @@ async function newCoins() {
   } catch (error) {
     console.error("Ошибка:", error);
   }
-}
+};
 
 onMounted(() => {
   newCoins();
@@ -162,6 +162,7 @@ option {
 table {
   border-collapse: collapse;
   width: 100%;
+  cursor: pointer;
 }
 
 table tr {

@@ -11,7 +11,7 @@ const props = defineProps({
 const openText = ref(false);
 const bestCoin = ref([]);
 
-async function fetchBestCoins() {
+const fetchBestCoins = async () => {
   try {
     const response = await fetch("https://api.coinranking.com/v2/stats");
     const result = await response.json();
@@ -19,7 +19,7 @@ async function fetchBestCoins() {
   } catch (error) {
     console.error("Ошибка:", error);
   }
-}
+};
 
 onMounted(() => {
   fetchBestCoins();
@@ -156,6 +156,7 @@ option {
 table {
   border-collapse: collapse;
   width: 100%;
+  cursor: pointer;
 }
 
 table tr {

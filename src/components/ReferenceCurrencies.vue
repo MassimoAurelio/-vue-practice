@@ -1,6 +1,6 @@
 <script setup>
 import { ref, defineProps, onMounted } from "vue";
-import { referenceCryptos } from "../utils/api";
+import { REFERENCE_URL } from "../utils/api";
 const props = defineProps({
   isBlackTheme: {
     type: Boolean,
@@ -8,18 +8,34 @@ const props = defineProps({
   },
 });
 const selectedCount = ref(10);
-
 const cryptos = ref([]);
 const openText = ref(false);
 
-async function refCrypto() {
+const referenceCryptos = async (limit = 10) => {
+  const url = `${REFERENCE_URL}?coins=${limit}`;
+  try {
+    const response = await fetch(url);
+
+    if (!response.ok) {
+      throw new Error("Network response error");
+    }
+
+    const data = await response.json();
+    return data.data.currencies;
+  } catch (error) {
+    console.error(error);
+    throw error;
+  }
+};
+
+const refCrypto = async () => {
   try {
     const coins = await referenceCryptos(selectedCount.value);
     cryptos.value = coins;
   } catch (error) {
     console.error(error);
   }
-}
+};
 
 onMounted(() => {
   refCrypto(selectedCount.value);
@@ -161,6 +177,7 @@ option {
 table {
   border-collapse: collapse;
   width: 100%;
+  cursor: pointer;
 }
 
 table tr {

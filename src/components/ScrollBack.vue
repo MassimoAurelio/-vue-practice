@@ -13,6 +13,11 @@ const checkScroll = () => {
   showButton.value = window.scrollY > 200;
 };
 
+const scrollToTop = () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+  console.log;
+};
+
 onMounted(() => {
   window.addEventListener("scroll", checkScroll);
 });
@@ -20,11 +25,6 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("scroll", checkScroll);
 });
-
-const scrollToTop = () => {
-  window.scrollTo({ top: 0, behavior: "smooth" });
-  console.log;
-};
 </script>
 
 <template>
