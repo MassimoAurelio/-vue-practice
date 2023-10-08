@@ -59,7 +59,7 @@ const props = defineProps({
   background-color: #2b4fd7;
 }
 .reg-button:hover {
-  background-color: #2b4fd7;
+  background-color: #3d63ec;
 }
 
 .black-theme .login-button:hover {
